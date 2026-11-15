@@ -1,0 +1,209 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020817">
+
+  <title>Projects · VISTAS ACM</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/vistas-acm-blue-logo.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+
+<body data-page="projects">
+
+  <div id="wipe" aria-hidden="true">
+    <img src="assets/vistas-acm-blue-logo.jpg" alt="">
+  </div>
+
+  <div id="cur"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nv" aria-label="Main">
+
+    <a class="brand" data-p="home" href="index.html" aria-label="VISTAS ACM home">
+      <img src="assets/vistas-acm-blue-logo.jpg" alt="">
+      <span>
+        <b>VISTAS ACM</b>
+        <small>STUDENT CHAPTER</small>
+      </span>
+    </a>
+
+    <button class="mt" id="mt" aria-expanded="false" aria-label="Open menu">
+      ☰
+    </button>
+
+    <div class="menu">
+      <a class="l" data-p="about" href="about.html">About</a>
+      <a class="l" data-p="domains" href="domains.html">Domains</a>
+      <a class="l" data-p="events" href="events.html">Events</a>
+      <a class="l" data-p="projects" href="projects.html">Projects</a>
+      <a class="l" data-p="team" href="team.html">Team</a>
+      <a class="l" data-p="gallery" href="gallery.html">Gallery</a>
+      <a class="l" data-p="contact" href="contact.html">Contact</a>
+    </div>
+
+    <!-- INSTAGRAM NAVBAR ICON -->
+    <a class="instagram-link"
+       href="https://www.instagram.com/vistas_acm/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Visit VISTAS ACM on Instagram">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"
+          fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4"
+          fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="17.5" cy="6.8" r="1.1" fill="currentColor"/>
+      </svg>
+
+    </a>
+
+    <a class="cta" data-p="contact" href="contact.html">
+      Join the chapter ↗
+    </a>
+
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="top">
+
+    <!-- HERO -->
+    <header class="ph">
+      <div class="wrap">
+
+        <span class="mono">VISTAS ACM / Projects</span>
+
+        <h1>
+          <span class="w" style="--i:0">Made</span>
+          <span class="w" style="--i:1">to matter.</span>
+        </h1>
+
+        <p class="lead">
+          A showcase for ideas built by curious people, from first prototypes to collaborative projects and experiments.
+        </p>
+
+      </div>
+
+      <div class="num" aria-hidden="true">04</div>
+    </header>
+
+    <!-- PROJECTS -->
+    <section>
+      <div class="wrap">
+
+        <div class="sh rv">
+
+          <div>
+            <span class="mono">Made by the community</span>
+
+            <h2 style="margin-top:18px">
+              Ideas become<br>
+              <span>real things.</span>
+            </h2>
+          </div>
+
+          <div>
+            <p class="lead">
+              Replace each entry with an approved team submission.
+            </p>
+
+            <div style="margin-top:18px"></div>
+          </div>
+
+        </div>
+
+        <!-- PROJECT FILTERS -->
+        <div class="chips rv" data-chips>
+
+          <button class="chip" aria-pressed="true" data-f="All">
+            All projects
+          </button>
+
+          <button class="chip" aria-pressed="false" data-f="Software">
+            Software
+          </button>
+
+          <button class="chip" aria-pressed="false" data-f="Research">
+            Research
+          </button>
+
+          <button class="chip" aria-pressed="false" data-f="Creative">
+            Creative
+          </button>
+
+        </div>
+
+        <!-- DYNAMIC PROJECT GRID -->
+        <div class="grid3" data-grid="projects"></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+
+      <div class="ft">
+
+        <a class="brand" data-p="home" href="index.html">
+          <img src="assets/vistas-acm-blue-logo.jpg" alt="">
+          <span>
+            <b>VISTAS ACM</b>
+            <small>STUDENT CHAPTER</small>
+          </span>
+        </a>
+
+        <nav aria-label="Footer">
+          <a data-p="about" href="about.html">About</a>
+          <a data-p="domains" href="domains.html">Domains</a>
+          <a data-p="events" href="events.html">Events</a>
+          <a data-p="projects" href="projects.html">Projects</a>
+          <a data-p="team" href="team.html">Team</a>
+          <a data-p="gallery" href="gallery.html">Gallery</a>
+          <a data-p="contact" href="contact.html">Contact</a>
+        </nav>
+
+        <!-- INSTAGRAM FOOTER LINK -->
+        <a class="footer-instagram"
+           href="https://www.instagram.com/vistas_acm/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Follow VISTAS ACM on Instagram">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"
+              fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="4"
+              fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.8" r="1.1" fill="currentColor"/>
+          </svg>
+
+          <span>Instagram ↗</span>
+        </a>
+
+        <span>
+          © <span data-year></span> VISTAS ACM · Build / Lead / Create / Connect
+        </span>
+
+      </div>
+
+      <div class="big-ft" aria-hidden="true">
+        VISTAS
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+
+</body>
+</html>
+```
