@@ -724,62 +724,143 @@ body.home #wipe{animation:none;transform:translateY(100%)}
 }
 
 /* ==========================================
-   VISTAS ACM — MOBILE TEAM POLISH
+   VISTAS ACM — MOBILE TEAM FINAL FIX
+   (paste at the END of the stylesheet)
 ========================================== */
-
 @media (max-width: 700px) {
 
-    /* Background word */
-    #wds {
-        top: 30% !important;
-    }
+  html, body { overflow-x: clip; }
 
-    .wd {
-        font-size: clamp(58px, 16vw, 100px) !important;
-        letter-spacing: -2px;
-    }
+  /* Stage: one full-screen card */
+  .tstage {
+    position: relative !important;
+    height: 100svh !important;
+    min-height: 640px !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
 
-    /* Portrait */
-    #sls {
-        height: 65svh !important;
-    }
+  /* Top row: label left, counter right (below the navbar) */
+  .tstage .tlabel {
+    top: calc(98px + env(safe-area-inset-top, 0px)) !important;
+    left: 22px !important;
+    font-size: 10px !important;
+    letter-spacing: .16em;
+  }
+  .tstage .cnt {
+    position: absolute !important;
+    top: calc(88px + env(safe-area-inset-top, 0px)) !important;
+    right: 22px !important;
+    left: auto !important;
+    translate: none !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    z-index: 8 !important;
+  }
+  .tstage .cnt b { font-size: 34px !important; }
+  .tstage .cnt span { font-size: 10px !important; }
+  .tstage .bar { width: 48px !important; height: 2px !important; }
+  .tstage .bar i { transform: scaleX(var(--p, 0)) !important; transform-origin: left !important; }
 
-    .sl img {
-        height: 100% !important;
-        object-fit: contain !important;
-        object-position: center bottom !important;
-    }
+  /* Big background word */
+  #wds, #sls {
+    position: absolute !important;
+    inset: 0 !important;
+    top: 0 !important;
+    height: auto !important;
+    pointer-events: none;
+  }
+  .tstage .wd {
+    position: absolute !important;
+    inset: 150px 10px auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    text-align: center;
+    white-space: normal !important;
+    font-size: clamp(64px, 19vw, 112px) !important;
+    line-height: .86 !important;
+    letter-spacing: -1px !important;
+    overflow-wrap: anywhere;
+  }
 
-    /* Member counter */
-    .cnt {
-        top: 55% !important;
-        left: 24px !important;
-        z-index: 8 !important;
-    }
+  /* Portrait: sits ABOVE the info panel, never behind the text */
+  .tstage .sl {
+    position: absolute !important;
+    inset: 170px 0 205px 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+    border: 0 !important;
+  }
+  .tstage .sl img {
+    height: 100% !important;
+    width: auto !important;
+    max-width: 92% !important;
+    max-height: none !important;
+    padding: 0 !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+  }
+  .tstage .sl.ph img {          /* placeholder logo for members without photo */
+    height: auto !important;
+    width: 170px !important;
+    margin-bottom: 20px;
+  }
 
-    /* Member details */
-    .info {
-        padding: 75px 20px 38px !important;
-    }
+  /* Info panel pinned to the bottom with a fade */
+  .tstage .info {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;      /* removes the old right:90px bug */
+    bottom: 0 !important;
+    top: auto !important;
+    translate: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 80px 22px calc(34px + env(safe-area-inset-bottom, 0px)) !important;
+    text-align: left !important;
+    z-index: 7 !important;
+    background: linear-gradient(to top,
+                hsl(var(--h) 85% 5%) 58%,
+                hsl(var(--h) 85% 5% / 0)) !important;
+    text-shadow: none !important;
+  }
+  .tstage .info .mono { font-size: 11px; }
+  .tstage .info #nm {
+    font-size: clamp(36px, 10.5vw, 54px) !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    margin: 8px 0 6px !important;
+    max-width: 100% !important;
+    text-wrap: balance;
+    overflow-wrap: normal !important;
+  }
+  .tstage .info #rl {
+    font-size: 15px !important;
+    margin: 0 !important;
+    color: rgba(255,255,255,.85);
+  }
+  .tstage .info #tm,
+  .tstage .info .t {
+    display: inline-block;
+    margin-top: 14px !important;
+    padding: 7px 14px;
+    font-size: 10px !important;
+    letter-spacing: .14em !important;
+  }
 
-    #nm {
-        font-size: clamp(32px, 8.5vw, 44px) !important;
-        line-height: 1.05 !important;
-        letter-spacing: -1px;
-        max-width: 100%;
-        margin: 12px auto !important;
-        overflow-wrap: normal;
-        text-wrap: balance;
-    }
+  .tstage .hint { display: none !important; }
+}
 
-    #rl {
-        font-size: 15px !important;
-        margin-top: 10px !important;
-    }
-
-    #tm {
-        font-size: 10px !important;
-        letter-spacing: 2px;
-    }
-
+/* very small phones */
+@media (max-width: 380px) {
+  .tstage .sl { inset: 160px 0 195px 0 !important; }
+  .tstage .info #nm { font-size: 34px !important; }
 }
