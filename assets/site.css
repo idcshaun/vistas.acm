@@ -370,3 +370,342 @@ body.home #wipe{animation:none;transform:translateY(100%)}
     bottom: -3px;
   }
 }
+
+/* =========================================
+   VISTAS ACM — RESPONSIVE NAVBAR FIX
+========================================= */
+
+.nav {
+    width: min(1140px, calc(100% - 40px));
+    max-width: 1140px;
+    white-space: normal;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.nav .brand {
+    flex-shrink: 0;
+    margin-right: auto;
+}
+
+.nav .menu {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.nav .instagram-link,
+.nav .cta {
+    flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+
+    .nav {
+        width: calc(100% - 28px);
+        top: calc(12px + env(safe-area-inset-top));
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .nav .brand {
+        gap: 8px;
+    }
+
+    .nav .brand img {
+        width: 43px;
+        height: 43px;
+    }
+
+    .nav .brand b {
+        font-size: 19px;
+    }
+
+    .nav .brand small {
+        font-size: 8px;
+    }
+
+    .nav .mt {
+        display: block;
+        flex-shrink: 0;
+        font-size: 25px;
+        padding: 8px 12px;
+    }
+
+    .nav .menu {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 12px;
+        gap: 4px;
+
+        background: rgba(2, 8, 23, .97);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity .25s ease,
+            transform .25s ease,
+            visibility .25s ease;
+    }
+
+    .nav.o .menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .nav .menu a.l {
+        display: block;
+        padding: 13px 16px;
+        border-radius: 12px;
+        font-size: 15px;
+    }
+
+    .nav .menu a.l.is-active {
+        background: rgba(22, 168, 255, .12);
+    }
+
+    .nav .menu a.l.is-active::after {
+        display: none;
+    }
+
+    .nav .instagram-link {
+        width: 42px;
+        height: 42px;
+    }
+
+    .nav .cta {
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .nav {
+        gap: 4px;
+    }
+
+    .nav .brand img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .nav .brand b {
+        font-size: 16px;
+    }
+
+    .nav .brand small {
+        font-size: 7px;
+    }
+
+    .nav .instagram-link {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* =========================================
+   VISTAS ACM — TEAM MOBILE REDESIGN
+========================================= */
+
+@media (max-width: 700px) {
+
+    .ph {
+        padding: 150px 0 55px;
+    }
+
+    .ph h1 {
+        font-size: clamp(54px, 13vw, 88px);
+        line-height: .95;
+    }
+
+    .ph .lead {
+        font-size: 15px;
+    }
+
+    /* Team scrolling area */
+
+    .ttrack {
+        height: auto !important;
+        min-height: 0;
+    }
+
+    .tstage {
+        position: relative;
+        top: auto;
+
+        height: auto;
+        min-height: 760px;
+
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        padding:
+            105px 22px
+            calc(65px + env(safe-area-inset-bottom));
+
+        background:
+            radial-gradient(
+                circle at 75% 35%,
+                hsl(var(--h) 80% 30%),
+                hsl(var(--h) 85% 6%) 75%
+            );
+    }
+
+    .tlabel {
+        top: 28px;
+        left: 22px;
+        font-size: 10px;
+    }
+
+    /* Animated domain word */
+
+    .wd {
+        position: absolute;
+        inset: 90px 12px auto;
+
+        height: auto;
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        padding: 0;
+        white-space: normal;
+
+        text-align: center;
+
+        font-size: clamp(58px, 16vw, 100px) !important;
+        line-height: .85;
+
+        overflow-wrap: anywhere;
+    }
+
+    /* Portrait */
+
+    .sl {
+        position: absolute;
+
+        inset: 150px 0 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        padding: 0;
+
+        transform: translateY(100px) scale(.95);
+    }
+
+    .sl img {
+        width: auto;
+        height: 440px;
+
+        max-height: 58vh;
+        max-width: 90%;
+
+        object-fit: contain;
+        object-position: bottom;
+    }
+
+    .sl.ph img {
+        width: 190px;
+        height: 190px;
+        padding: 0;
+        object-fit: contain;
+    }
+
+    /* Member information */
+
+    .info {
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        translate: none;
+
+        width: 100%;
+        max-width: 100%;
+
+        z-index: 6;
+
+        margin-top: 340px;
+
+        text-shadow: 0 2px 20px #020817;
+    }
+
+    .info h3 {
+        font-size: clamp(39px, 10vw, 58px);
+        line-height: .95;
+
+        margin: 12px 0;
+        overflow-wrap: anywhere;
+    }
+
+    .info p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .info .t {
+        font-size: 9px;
+        margin-top: 14px;
+    }
+
+    /* Counter */
+
+    .cnt {
+        top: 75px;
+        right: 22px;
+
+        translate: none;
+
+        flex-direction: row;
+        align-items: center;
+
+        gap: 8px;
+    }
+
+    .cnt b {
+        font-size: 36px;
+    }
+
+    .cnt span {
+        font-size: 10px;
+    }
+
+    .bar {
+        width: 55px;
+        height: 2px;
+    }
+
+    .bar i {
+        transform: scaleX(var(--p, 0));
+        transform-origin: left;
+    }
+
+    .hint {
+        display: none;
+    }
+}
