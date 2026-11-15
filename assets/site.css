@@ -274,3 +274,99 @@ body.home #wipe{animation:none;transform:translateY(100%)}
   color: #4b9aff;
   text-decoration: none;
 }
+
+/* AUTOMATIC TEAM PREVIEW */
+
+.team-showcase {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  min-height: 420px;
+  margin-top: 55px;
+  overflow: hidden;
+  background: var(--deep);
+  border: 1px solid var(--line);
+}
+
+.team-slide-visual {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.team-slide-visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  display: block;
+  opacity: 1;
+  transition: opacity .5s ease, transform 1s ease;
+}
+
+.team-slide-visual img.changing {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.team-slide-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+}
+
+.team-slide-info h3 {
+  font-size: clamp(32px, 4vw, 58px);
+  margin: 22px 0 12px;
+}
+
+.team-slide-info p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media(max-width: 768px) {
+  .team-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .team-slide-visual,
+  .team-slide-visual img {
+    min-height: 320px;
+    height: 320px;
+  }
+
+  .team-slide-info {
+    padding: 28px;
+  }
+}
+
+/* ACTIVE NAVIGATION LINK */
+
+.nav .menu .l {
+  position: relative;
+  transition: color .3s ease;
+}
+
+.nav .menu .l.is-active {
+  color: #20a8ff;
+}
+
+.nav .menu .l.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  background: #20a8ff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(32, 168, 255, .65);
+}
+
+@media (max-width: 768px) {
+  .nav .menu .l.is-active::after {
+    bottom: -3px;
+  }
+}

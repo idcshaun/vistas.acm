@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Events | VISTAS ACM Control Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/admin.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="admin-sidebar" id="sidebar">
+
+        <a href="dashboard.html" class="sidebar-brand">
+
+            <img
+                src="../assets/vistas-acm-blue-logo.jpg"
+                alt="VISTAS ACM"
+            >
+
+            <div class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </div>
+
+        </a>
+
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Overview</span>
+            </a>
+
+            <a href="events.html" class="nav-item active">
+                <i data-lucide="calendar-days"></i>
+                <span>Events</span>
+                <i class="nav-active-indicator"></i>
+            </a>
+
+            <a href="projects.html" class="nav-item">
+                <i data-lucide="layers"></i>
+                <span>Projects</span>
+            </a>
+
+            <a href="team.html" class="nav-item">
+                <i data-lucide="users"></i>
+                <span>Team Members</span>
+            </a>
+
+            <a href="announcements.html" class="nav-item">
+                <i data-lucide="megaphone"></i>
+                <span>Announcements</span>
+            </a>
+
+            <a href="gallery.html" class="nav-item">
+                <i data-lucide="images"></i>
+                <span>Gallery</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-label sidebar-label-spaced">SYSTEM</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="settings.html" class="nav-item">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="../index.html" target="_blank" class="nav-item">
+                <i data-lucide="external-link"></i>
+                <span>View Website</span>
+            </a>
+
+        </nav>
+
+
+        <!-- ADMIN PROFILE -->
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+                <div class="admin-avatar">VA</div>
+
+                <div class="admin-profile-info">
+
+                    <strong id="admin-name">Administrator</strong>
+
+                    <small id="admin-role">ADMINISTRATOR</small>
+
+                </div>
+
+                <button
+                    class="icon-button sidebar-logout"
+                    id="logout-button"
+                    title="Logout"
+                >
+                    <i data-lucide="log-out"></i>
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                SYSTEM OPERATIONAL
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="icon-button menu-toggle"
+                    id="menu-toggle"
+                    aria-label="Toggle navigation"
+                >
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div class="breadcrumb">
+
+                    CONTROL CENTER
+
+                    <i data-lucide="chevron-right"></i>
+
+                    <strong>EVENTS</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+
+                    <span class="live-indicator"></span>
+
+                    ALL SYSTEMS NORMAL
+
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date"></div>
+
+                <div class="topbar-user">
+
+                    <div class="topbar-user-avatar">VA</div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             DASHBOARD CONTENT
+        ====================================== -->
+
+        <section class="dashboard-content">
+
+
+            <!-- HERO -->
+
+            <section class="control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+
+                        <span></span>
+
+                        CONTENT MANAGEMENT
+
+                        <b>/ 02</b>
+
+                    </div>
+
+
+                    <h1>
+                        CREATE.<br>
+                        <span>CONNECT.</span>
+                    </h1>
+
+
+                    <p>
+                        Manage workshops, technical sessions, symposiums
+                        and community events. Keep the VISTAS ACM
+                        community connected with what's happening next.
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <button
+                            class="primary-button"
+                            id="add-event-button"
+                        >
+                            <i data-lucide="plus"></i>
+                            CREATE NEW EVENT
+                        </button>
+
+
+                        <a
+                            href="../events.html"
+                            target="_blank"
+                            class="hero-secondary-link"
+                        >
+                            View website
+
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HERO GRAPHIC -->
+
+                <div class="hero-art">
+
+                    <div class="hero-orbit"></div>
+
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">
+                        E<span>V</span>
+                    </div>
+
+                    <div class="hero-art-caption">
+                        PLAN<br>
+                        ORGANISE<br>
+                        EXECUTE
+                    </div>
+
+                    <div class="hero-art-index">
+                        02 / 06
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 EVENT STATISTICS
+            ====================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+
+                        <div class="section-eyebrow">
+                            EVENT ANALYTICS
+                        </div>
+
+                        <h2>EVENT OVERVIEW</h2>
+
+                    </div>
+
+
+                    <div class="section-note">
+
+                        <span class="live-indicator"></span>
+
+                        LIVE DATA
+
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid control-stats">
+
+
+                    <!-- TOTAL EVENTS -->
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+
+                            TOTAL EVENTS
+
+                            <span class="stat-icon">
+                                <i data-lucide="calendar-days"></i>
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-number-row">
+
+                            <h2 id="total-events">0</h2>
+
+                        </div>
+
+                        <p>All registered events</p>
+
+                        <div class="stat-card-accent accent-blue"></div>
+
+                    </article>
+
+
+                    <!-- PUBLISHED -->
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+
+                            PUBLISHED
+
+                            <span class="stat-icon">
+                                <i data-lucide="check-circle"></i>
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-number-row">
+
+                            <h2 id="published-events">0</h2>
+
+                        </div>
+
+                        <p>Visible on the website</p>
+
+                        <div class="stat-card-accent accent-green"></div>
+
+                    </article>
+
+
+                    <!-- DRAFTS -->
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+
+                            DRAFTS
+
+                            <span class="stat-icon">
+                                <i data-lucide="file-edit"></i>
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-number-row">
+
+                            <h2 id="draft-events">0</h2>
+
+                        </div>
+
+                        <p>Awaiting publication</p>
+
+                        <div class="stat-card-accent accent-violet"></div>
+
+                    </article>
+
+
+                    <!-- ARCHIVED -->
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+
+                            ARCHIVED
+
+                            <span class="stat-icon">
+                                <i data-lucide="archive"></i>
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-number-row">
+
+                            <h2 id="archived-events">0</h2>
+
+                        </div>
+
+                        <p>Past archived events</p>
+
+                        <div class="stat-card-accent accent-cyan"></div>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 EVENT DIRECTORY
+            ====================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="control-section-heading">
+
+                    <div>
+
+                        <div class="section-eyebrow">
+                            DATABASE MANAGEMENT
+                        </div>
+
+                        <h2>EVENT DIRECTORY</h2>
+
+                    </div>
+
+
+                    <div class="section-note">
+
+                        <i data-lucide="database"></i>
+
+                        EVENT DATABASE
+
+                    </div>
+
+                </div>
+
+
+                <!-- SEARCH AND FILTER -->
+
+                <div class="events-toolbar">
+
+
+                    <div class="search-box">
+
+                        <i data-lucide="search"></i>
+
+                        <input
+                            type="search"
+                            id="event-search"
+                            placeholder="Search events..."
+                        >
+
+                    </div>
+
+
+                    <select id="event-filter">
+
+                        <option value="all">All Events</option>
+
+                        <option value="published">
+                            Published
+                        </option>
+
+                        <option value="draft">
+                            Drafts
+                        </option>
+
+                        <option value="archived">
+                            Archived
+                        </option>
+
+                    </select>
+
+
+                </div>
+
+
+                <!-- EVENTS TABLE -->
+
+                <div class="events-table-container">
+
+                    <table class="events-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>EVENT</th>
+
+                                <th>DATE</th>
+
+                                <th>VENUE</th>
+
+                                <th>STATUS</th>
+
+                                <th>ACTIONS</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="events-list">
+
+                            <tr>
+
+                                <td colspan="5" class="table-message">
+
+                                    Loading events...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- FEEDBACK MESSAGE -->
+
+                <p
+                    id="event-message"
+                    class="event-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer class="control-footer">
+
+                <span>
+                    VISTAS ACM STUDENT CHAPTER
+                </span>
+
+                <span>
+                    CONTROL CENTER
+                    <b>•</b>
+                    EVENT MANAGEMENT
+                </span>
+
+            </footer>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================
+     EVENT CREATION / EDIT MODAL
+====================================== -->
+
+<div class="event-modal" id="event-modal">
+
+    <div class="event-modal-content">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="section-eyebrow">
+                    EVENT MANAGEMENT
+                </div>
+
+                <h2 id="modal-title">
+                    CREATE EVENT
+                </h2>
+
+            </div>
+
+
+            <button
+                id="close-modal"
+                class="modal-close"
+                aria-label="Close modal"
+            >
+                <i data-lucide="x"></i>
+            </button>
+
+        </div>
+
+
+        <!-- EVENT FORM -->
+
+        <form id="event-form">
+
+            <input
+                type="hidden"
+                id="event-id"
+            >
+
+
+            <!-- TITLE -->
+
+            <label for="event-title">
+                EVENT TITLE
+            </label>
+
+            <input
+                type="text"
+                id="event-title"
+                maxlength="150"
+                placeholder="Enter event title"
+                required
+            >
+
+
+            <!-- DESCRIPTION -->
+
+            <label for="event-description">
+                DESCRIPTION
+            </label>
+
+            <textarea
+                id="event-description"
+                rows="4"
+                placeholder="Describe the event..."
+            ></textarea>
+
+
+            <!-- DATE AND VENUE -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label for="event-date">
+                        DATE & TIME
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="event-date"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="event-venue">
+                        VENUE
+                    </label>
+
+                    <input
+                        type="text"
+                        id="event-venue"
+                        placeholder="Event venue"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- POSTER UPLOAD -->
+
+            <label>
+                EVENT POSTER
+            </label>
+
+
+            <div class="image-upload-area">
+
+                <input
+                    type="file"
+                    id="event-image"
+                    accept="image/jpeg,image/png,image/webp"
+                    hidden
+                >
+
+
+                <label
+                    for="event-image"
+                    class="upload-box"
+                >
+
+                    <i data-lucide="cloud-upload"></i>
+
+                    <strong>
+                        Click to upload event poster
+                    </strong>
+
+                    <span>
+                        JPG, PNG or WEBP · Maximum 5 MB
+                    </span>
+
+                </label>
+
+
+                <!-- IMAGE PREVIEW -->
+
+                <div
+                    class="image-preview"
+                    id="image-preview"
+                >
+
+                    <img
+                        id="preview-image"
+                        src=""
+                        alt="Event poster preview"
+                    >
+
+
+                    <button
+                        type="button"
+                        id="remove-image"
+                    >
+                        REMOVE IMAGE
+                    </button>
+
+                </div>
+
+
+                <p id="upload-status"></p>
+
+            </div>
+
+
+            <!-- REGISTRATION URL -->
+
+            <label for="event-registration">
+                REGISTRATION URL
+            </label>
+
+            <input
+                type="url"
+                id="event-registration"
+                placeholder="https://..."
+            >
+
+
+            <!-- PUBLICATION STATUS -->
+
+            <label for="event-status">
+                PUBLICATION STATUS
+            </label>
+
+            <select id="event-status">
+
+                <option value="draft">
+                    Save as Draft
+                </option>
+
+                <option value="published">
+                    Publish Event
+                </option>
+
+                <option value="archived">
+                    Archive Event
+                </option>
+
+            </select>
+
+
+            <!-- MODAL ACTIONS -->
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancel-event"
+                    class="secondary-button"
+                >
+                    CANCEL
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="save-event"
+                    class="primary-button"
+                >
+                    SAVE EVENT
+
+                    <i data-lucide="arrow-right"></i>
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
+
+<script type="module" src="../assets/events.js"></script>
+
+
+<script>
+
+    // LUCIDE ICONS
+
+    lucide.createIcons();
+
+
+    // MOBILE SIDEBAR
+
+    const menuToggle = document.getElementById("menu-toggle");
+
+    const sidebar = document.getElementById("sidebar");
+
+
+    menuToggle?.addEventListener("click", () => {
+
+        sidebar.classList.toggle("sidebar-open");
+
+    });
+
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            window.innerWidth <= 750 &&
+            sidebar.classList.contains("sidebar-open") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+
+            sidebar.classList.remove("sidebar-open");
+
+        }
+
+    });
+
+
+    // CURRENT DATE
+
+    const dateElement = document.getElementById("current-date");
+
+
+    if (dateElement) {
+
+        dateElement.textContent = new Intl.DateTimeFormat("en-IN", {
+
+            day: "2-digit",
+
+            month: "short",
+
+            year: "numeric"
+
+        }).format(new Date());
+
+    }
+
+</script>
+
+</body>
+</html>

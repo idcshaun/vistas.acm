@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team | VISTAS ACM Control Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/admin.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+
+        <a href="dashboard.html" class="sidebar-brand">
+
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+
+            <div class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </div>
+
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <span>◈</span>
+                Overview
+            </a>
+
+            <a href="events.html" class="nav-item">
+                <span>▣</span>
+                Events
+            </a>
+
+            <a href="projects.html" class="nav-item">
+                <span>⌘</span>
+                Projects
+            </a>
+
+            <a href="team.html" class="nav-item active">
+                <span>♙</span>
+                Team Members
+                <i class="nav-active-indicator"></i>
+            </a>
+
+            <a href="announcements.html" class="nav-item">
+                <span>◉</span>
+                Announcements
+            </a>
+
+            <a href="gallery.html" class="nav-item">
+                <span>▧</span>
+                Gallery
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label sidebar-label-spaced">SYSTEM</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="../index.html" target="_blank" class="nav-item">
+                <span>↗</span>
+                View Website
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+                <div class="admin-avatar" id="admin-avatar">AC</div>
+
+                <div class="admin-profile-info">
+                    <strong id="admin-name">Administrator</strong>
+                    <small>ADMINISTRATOR</small>
+                </div>
+
+                <button class="icon-button sidebar-logout" id="logout-btn" title="Logout">
+                    ↗
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                SYSTEM OPERATIONAL
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button class="icon-button menu-toggle" id="menu-toggle">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    CONTROL CENTER
+                    <span>/</span>
+                    <strong>TEAM MEMBERS</strong>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+                    <span class="live-indicator"></span>
+                    ALL SYSTEMS NORMAL
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date"></div>
+
+                <div class="topbar-user">
+                    <div class="topbar-user-avatar">AC</div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        <section class="dashboard-content">
+
+            <!-- HERO -->
+            <section class="control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+                        <span></span>
+                        PEOPLE MANAGEMENT
+                        <b>/ 04</b>
+                    </div>
+
+                    <h1>THE PEOPLE<br><span>BEHIND ACM.</span></h1>
+
+                    <p>
+                        Manage the VISTAS ACM leadership, committee members
+                        and technical teams. Keep the community connected.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <button class="primary-button" id="add-member-btn">
+                            + ADD TEAM MEMBER
+                        </button>
+
+                        <a href="../team.html" target="_blank" class="hero-secondary-link">
+                            View website ↗
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-art">
+
+                    <div class="hero-orbit"></div>
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">T<span>M</span></div>
+
+                    <div class="hero-art-caption">
+                        PEOPLE<br>LEADERSHIP<br>COMMUNITY
+                    </div>
+
+                    <div class="hero-art-index">04 / 06</div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">TEAM ANALYTICS</div>
+                        <h2>TEAM OVERVIEW</h2>
+                    </div>
+
+                    <div class="section-note">
+                        <span class="live-indicator"></span>
+                        LIVE DATA
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid control-stats">
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            TOTAL MEMBERS
+                            <span class="stat-icon">♙</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="total-members">0</h2>
+                        </div>
+
+                        <p>Registered team members</p>
+
+                        <div class="stat-card-accent accent-blue"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            PUBLISHED
+                            <span class="stat-icon">✓</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="published-members">0</h2>
+                        </div>
+
+                        <p>Visible on the website</p>
+
+                        <div class="stat-card-accent accent-green"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            DRAFTS
+                            <span class="stat-icon">◷</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="draft-members">0</h2>
+                        </div>
+
+                        <p>Awaiting publication</p>
+
+                        <div class="stat-card-accent accent-violet"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            DOMAINS
+                            <span class="stat-icon">▦</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="team-domains">0</h2>
+                        </div>
+
+                        <p>Unique team domains</p>
+
+                        <div class="stat-card-accent accent-cyan"></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- TEAM DIRECTORY -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">MEMBER DATABASE</div>
+                        <h2>TEAM DIRECTORY</h2>
+                    </div>
+
+                    <div class="section-note">
+                        MEMBER MANAGEMENT
+                    </div>
+
+                </div>
+
+
+                <!-- FILTERS -->
+                <div class="events-toolbar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="search"
+                            id="member-search"
+                            placeholder="Search members..."
+                        >
+
+                    </div>
+
+
+                    <select id="member-status-filter">
+
+                        <option value="all">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+
+                    </select>
+
+
+                    <select id="member-domain-filter">
+
+                        <option value="all">All Domains</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TABLE -->
+                <div class="events-table-container">
+
+                    <table class="events-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>MEMBER</th>
+                                <th>DESIGNATION</th>
+                                <th>DOMAIN</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="team-table-body">
+
+                            <tr>
+                                <td colspan="5" class="table-message">
+                                    Loading team members...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="event-message" id="team-message"></div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="control-footer">
+
+                <span>VISTAS ACM STUDENT CHAPTER</span>
+
+                <span>
+                    CONTROL CENTER
+                    <b>•</b>
+                    TEAM MANAGEMENT
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ADD / EDIT MEMBER MODAL -->
+<div class="event-modal" id="member-modal">
+
+    <div class="event-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="section-eyebrow">
+                    PEOPLE MANAGEMENT
+                </div>
+
+                <h2 id="member-modal-title">
+                    ADD TEAM MEMBER
+                </h2>
+
+            </div>
+
+            <button class="modal-close" id="close-member-modal">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="member-form">
+
+            <input type="hidden" id="member-id">
+
+
+            <!-- NAME -->
+            <label for="member-name">
+                FULL NAME
+            </label>
+
+            <input
+                type="text"
+                id="member-name"
+                placeholder="Enter full name"
+                required
+            >
+
+
+            <!-- DESIGNATION -->
+            <label for="member-designation">
+                DESIGNATION
+            </label>
+
+            <input
+                type="text"
+                id="member-designation"
+                placeholder="President / Vice President / Secretary..."
+                required
+            >
+
+
+            <!-- DOMAIN AND STATUS -->
+            <div class="form-row">
+
+                <div>
+
+                    <label for="member-domain">
+                        DOMAIN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="member-domain"
+                        placeholder="Core Team / Web Development / AI..."
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="member-status">
+                        STATUS
+                    </label>
+
+                    <select id="member-status">
+
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="archived">Archived</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- BIO -->
+            <label for="member-bio">
+                BIOGRAPHY
+            </label>
+
+            <textarea
+                id="member-bio"
+                placeholder="Write a short introduction about the member..."
+            ></textarea>
+
+
+            <!-- PROFILE IMAGE -->
+            <label>
+                PROFILE PHOTO
+            </label>
+
+            <div class="image-upload-area">
+
+                <label class="upload-box" for="member-image">
+
+                    <span>↑</span>
+
+                    <strong>Upload profile photo</strong>
+
+                    <span>JPG, PNG or WEBP · Maximum 5MB</span>
+
+                </label>
+
+                <input
+                    type="file"
+                    id="member-image"
+                    accept="image/png,image/jpeg,image/webp"
+                    hidden
+                >
+
+
+                <div class="image-preview" id="member-image-preview">
+
+                    <img
+                        id="member-preview-image"
+                        src=""
+                        alt="Member preview"
+                    >
+
+                    <button type="button" id="remove-member-image">
+                        REMOVE IMAGE
+                    </button>
+
+                </div>
+
+                <div id="member-upload-status"></div>
+
+            </div>
+
+
+            <!-- SOCIAL LINKS -->
+            <div class="section-eyebrow" style="margin-top:15px;">
+                SOCIAL CONNECTIONS
+            </div>
+
+
+            <label for="member-linkedin">
+                LINKEDIN URL
+            </label>
+
+            <input
+                type="url"
+                id="member-linkedin"
+                placeholder="https://linkedin.com/in/username"
+            >
+
+
+            <label for="member-instagram">
+                INSTAGRAM URL
+            </label>
+
+            <input
+                type="url"
+                id="member-instagram"
+                placeholder="https://instagram.com/username"
+            >
+
+
+            <label for="member-github">
+                GITHUB URL
+            </label>
+
+            <input
+                type="url"
+                id="member-github"
+                placeholder="https://github.com/username"
+            >
+
+
+            <!-- DISPLAY ORDER -->
+            <label for="member-order">
+                DISPLAY ORDER
+            </label>
+
+            <input
+                type="number"
+                id="member-order"
+                value="0"
+                min="0"
+            >
+
+
+            <!-- ACTIONS -->
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancel-member"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="save-member"
+                >
+                    SAVE MEMBER
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script type="module" src="../assets/team.js"></script>
+
+<script>
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("admin-sidebar");
+
+    menuToggle?.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-open");
+    });
+
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            window.innerWidth <= 750 &&
+            sidebar.classList.contains("sidebar-open") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("sidebar-open");
+        }
+
+    });
+
+
+    const dateElement = document.getElementById("current-date");
+
+    if (dateElement) {
+
+        dateElement.textContent = new Intl.DateTimeFormat("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }).format(new Date());
+
+    }
+
+</script>
+
+</body>
+</html>

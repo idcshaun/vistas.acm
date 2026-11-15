@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b18">
+
+    <title>Control Center | VISTAS ACM</title>
+
+    <link rel="stylesheet" href="../assets/admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="sidebar">
+
+        <a class="sidebar-brand" href="dashboard.html">
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+
+            <span class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </span>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item active">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Overview</span>
+                <span class="nav-active-indicator"></span>
+            </a>
+
+            <a href="events.html" class="nav-item">
+                <i data-lucide="calendar-days"></i>
+                <span>Events</span>
+            </a>
+
+            <a href="projects.html" class="nav-item">
+                <i data-lucide="layers-3"></i>
+                <span>Projects</span>
+            </a>
+
+            <a href="team.html" class="nav-item">
+                <i data-lucide="users"></i>
+                <span>Team members</span>
+            </a>
+
+            <a href="announcements.html" class="nav-item">
+                <i data-lucide="megaphone"></i>
+                <span>Announcements</span>
+            </a>
+
+            <a href="gallery.html" class="nav-item">
+                <i data-lucide="images"></i>
+                <span>Gallery</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label sidebar-label-spaced">
+            PREFERENCES
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="#" class="nav-item" id="settings-link">
+                <i data-lucide="settings-2"></i>
+                <span>Settings</span>
+                <span class="coming-soon">SOON</span>
+            </a>
+
+            <a href="/" target="_blank" rel="noopener" class="nav-item">
+                <i data-lucide="external-link"></i>
+                <span>View website</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+                <div class="admin-avatar" id="admin-avatar">
+                    VA
+                </div>
+
+                <div class="admin-profile-info">
+                    <strong id="admin-name">Administrator</strong>
+                    <small id="admin-role">ADMIN</small>
+                </div>
+
+                <button
+                    id="logout-button"
+                    class="icon-button sidebar-logout"
+                    title="Log out"
+                    aria-label="Log out"
+                >
+                    <i data-lucide="log-out"></i>
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                VISTAS ACM · ADMIN
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="menu-toggle icon-button"
+                    id="menu-toggle"
+                    aria-label="Open navigation"
+                >
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div class="breadcrumb">
+                    <span>WORKSPACE</span>
+                    <i data-lucide="chevron-right"></i>
+                    <strong>OVERVIEW</strong>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+                    <span class="live-indicator"></span>
+                    <span>ADMIN SYSTEM</span>
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date">
+                    --
+                </div>
+
+                <div class="topbar-user">
+
+                    <div class="topbar-user-avatar" id="topbar-avatar">
+                        VA
+                    </div>
+
+                    <div>
+                        <strong id="topbar-name">Administrator</strong>
+                        <small>CONTROL CENTER</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-content control-content">
+
+            <!-- HERO -->
+            <section class="welcome-section control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+                        <span></span>
+                        VISTAS ACM / CONTROL CENTER
+                        <b>001</b>
+                    </div>
+
+                    <h1>
+                        Good to see you,<br>
+                        <span id="welcome-name">Admin.</span>
+                    </h1>
+
+                    <p>
+                        Your chapter workspace, all in one place.
+                        Keep your content current and your community connected.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="events.html" class="primary-button">
+                            <i data-lucide="plus"></i>
+                            Create an event
+                        </a>
+
+                        <a
+                            href="/"
+                            target="_blank"
+                            rel="noopener"
+                            class="hero-secondary-link"
+                        >
+                            Visit live website
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-art" aria-hidden="true">
+
+                    <div class="hero-orbit orbit-one"></div>
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">
+                        ACM<span>.</span>
+                    </div>
+
+                    <div class="hero-art-caption">
+                        IDEAS INTO<br>IMPACT.
+                    </div>
+
+                    <div class="hero-art-index">
+                        V / 2026
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="dashboard-section">
+
+                <div class="section-heading control-section-heading">
+
+                    <div>
+                        <span class="section-eyebrow">AT A GLANCE</span>
+                        <h2>Workspace overview</h2>
+                    </div>
+
+                    <span class="section-note">
+                        <span class="live-indicator"></span>
+                        LIVE DATA
+                    </span>
+
+                </div>
+
+
+                <div class="stats-grid control-stats">
+
+                    <article class="stat-card control-stat-card">
+
+                        <div class="control-stat-top">
+                            <span>EVENTS</span>
+
+                            <span class="stat-icon">
+                                <i data-lucide="calendar-days"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="event-count">--</h2>
+                            <span class="stat-unit">PUBLISHED</span>
+                        </div>
+
+                        <p>Chapter activities and events</p>
+
+                        <div class="stat-card-accent accent-blue"></div>
+
+                    </article>
+
+
+                    <article class="stat-card control-stat-card">
+
+                        <div class="control-stat-top">
+                            <span>PROJECTS</span>
+
+                            <span class="stat-icon">
+                                <i data-lucide="blocks"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="project-count">--</h2>
+                            <span class="stat-unit">PUBLISHED</span>
+                        </div>
+
+                        <p>Student work and innovations</p>
+
+                        <div class="stat-card-accent accent-violet"></div>
+
+                    </article>
+
+
+                    <article class="stat-card control-stat-card">
+
+                        <div class="control-stat-top">
+                            <span>TEAM MEMBERS</span>
+
+                            <span class="stat-icon">
+                                <i data-lucide="users"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="team-count">--</h2>
+                            <span class="stat-unit">ACTIVE</span>
+                        </div>
+
+                        <p>People behind the chapter</p>
+
+                        <div class="stat-card-accent accent-cyan"></div>
+
+                    </article>
+
+
+                    <article class="stat-card control-stat-card">
+
+                        <div class="control-stat-top">
+                            <span>ANNOUNCEMENTS</span>
+
+                            <span class="stat-icon">
+                                <i data-lucide="radio-tower"></i>
+                            </span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="announcement-count">--</h2>
+                            <span class="stat-unit">PUBLISHED</span>
+                        </div>
+
+                        <p>News and chapter updates</p>
+
+                        <div class="stat-card-accent accent-green"></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- QUICK ACCESS -->
+            <section class="dashboard-section">
+
+                <div class="section-heading control-section-heading">
+
+                    <div>
+                        <span class="section-eyebrow">YOUR TOOLS</span>
+                        <h2>Manage your workspace</h2>
+                    </div>
+
+                    <span class="section-note">
+                        CONTENT MANAGEMENT
+                    </span>
+
+                </div>
+
+
+                <div class="control-quick-grid">
+
+                    <a href="events.html" class="control-action-card">
+
+                        <span class="control-action-icon">
+                            <i data-lucide="calendar-plus"></i>
+                        </span>
+
+                        <span class="control-action-arrow">
+                            <i data-lucide="arrow-up-right"></i>
+                        </span>
+
+                        <strong>Events</strong>
+
+                        <small>
+                            Create, update and publish chapter events.
+                        </small>
+
+                        <span class="control-action-foot">
+                            OPEN MODULE
+                            <i data-lucide="arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                    <a href="projects.html" class="control-action-card">
+
+                        <span class="control-action-icon">
+                            <i data-lucide="folder-kanban"></i>
+                        </span>
+
+                        <span class="control-action-arrow">
+                            <i data-lucide="arrow-up-right"></i>
+                        </span>
+
+                        <strong>Projects</strong>
+
+                        <small>
+                            Showcase ideas, builds and student projects.
+                        </small>
+
+                        <span class="control-action-foot">
+                            OPEN MODULE
+                            <i data-lucide="arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                    <a href="team.html" class="control-action-card">
+
+                        <span class="control-action-icon">
+                            <i data-lucide="contact-round"></i>
+                        </span>
+
+                        <span class="control-action-arrow">
+                            <i data-lucide="arrow-up-right"></i>
+                        </span>
+
+                        <strong>Team members</strong>
+
+                        <small>
+                            Manage profiles, roles and chapter domains.
+                        </small>
+
+                        <span class="control-action-foot">
+                            OPEN MODULE
+                            <i data-lucide="arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                    <a href="gallery.html" class="control-action-card">
+
+                        <span class="control-action-icon">
+                            <i data-lucide="images"></i>
+                        </span>
+
+                        <span class="control-action-arrow">
+                            <i data-lucide="arrow-up-right"></i>
+                        </span>
+
+                        <strong>Media gallery</strong>
+
+                        <small>
+                            Organize photos and videos from activities.
+                        </small>
+
+                        <span class="control-action-foot">
+                            OPEN MODULE
+                            <i data-lucide="arrow-right"></i>
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTTOM PANELS -->
+            <section class="control-bottom-grid">
+
+                <article class="control-panel activity-panel">
+
+                    <div class="control-panel-heading">
+
+                        <div>
+                            <span class="section-eyebrow">WHAT'S HAPPENING</span>
+                            <h2>Recent activity</h2>
+                        </div>
+
+                        <span class="panel-live-tag">
+                            ACTIVITY FEED
+                        </span>
+
+                    </div>
+
+                    <div class="activity-empty">
+
+                        <div class="activity-empty-icon">
+                            <i data-lucide="activity"></i>
+                        </div>
+
+                        <div>
+                            <strong>Your activity feed is ready</strong>
+
+                            <p>
+                                Content updates will appear here as
+                                activity tracking is added to the CMS.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="control-panel system-panel">
+
+                    <div class="control-panel-heading">
+
+                        <div>
+                            <span class="section-eyebrow">HEALTH CHECK</span>
+                            <h2>Platform status</h2>
+                        </div>
+
+                        <span class="system-health-badge">
+                            <span class="live-indicator"></span>
+                            ONLINE
+                        </span>
+
+                    </div>
+
+
+                    <div class="health-list">
+
+                        <div class="health-row">
+                            <span>
+                                <i data-lucide="globe"></i>
+                                Website
+                            </span>
+
+                            <strong class="health-ok">AVAILABLE</strong>
+                        </div>
+
+
+                        <div class="health-row">
+                            <span>
+                                <i data-lucide="database"></i>
+                                Supabase
+                            </span>
+
+                            <strong
+                                id="database-status"
+                                class="health-checking"
+                            >
+                                CHECKING
+                            </strong>
+                        </div>
+
+
+                        <div class="health-row">
+                            <span>
+                                <i data-lucide="instagram"></i>
+                                Instagram feed
+                            </span>
+
+                            <strong class="health-neutral">
+                                NOT VERIFIED
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <p class="health-footnote">
+                        Service indicators reflect checks performed by this dashboard.
+                    </p>
+
+                </article>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="control-footer">
+
+                <span>VISTAS ACM STUDENT CHAPTER</span>
+
+                <span>
+                    CONTROL CENTER <b>·</b> VERSION 2.0
+                </span>
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- SUPABASE + DASHBOARD LOGIC -->
+<script type="module">
+
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const $ = (id) => document.getElementById(id);
+
+
+async function startDashboard() {
+
+    try {
+
+        const response = await fetch("/api/config");
+
+        if (!response.ok) {
+            throw new Error("Could not load application configuration.");
+        }
+
+        const config = await response.json();
+
+        const supabase = createClient(
+            config.supabaseUrl,
+            config.supabaseKey
+        );
+
+
+        // CHECK AUTHENTICATION
+        const {
+            data: { user },
+            error: authError
+        } = await supabase.auth.getUser();
+
+
+        if (authError || !user) {
+
+            window.location.href = "/admin/login.html";
+            return;
+
+        }
+
+
+        // VERIFY ADMIN PROFILE
+        const { data: profile, error: profileError } = await supabase
+            .from("profiles")
+            .select("full_name, role")
+            .eq("id", user.id)
+            .single();
+
+
+        if (
+            profileError ||
+            !profile ||
+            !["admin", "editor"].includes(profile.role)
+        ) {
+
+            await supabase.auth.signOut();
+
+            window.location.href = "/admin/login.html";
+
+            return;
+
+        }
+
+
+        // PROFILE DETAILS
+        const fullName = profile.full_name || "Administrator";
+
+        const firstName =
+            fullName.trim().split(/\s+/)[0] || "Admin";
+
+        const initials = fullName
+            .trim()
+            .split(/\s+/)
+            .slice(0, 2)
+            .map(part => part[0])
+            .join("")
+            .toUpperCase();
+
+
+        $("admin-name").textContent = fullName;
+
+        $("welcome-name").textContent = firstName + ".";
+
+        $("admin-role").textContent = profile.role.toUpperCase();
+
+        $("admin-avatar").textContent = initials || "VA";
+
+        $("topbar-avatar").textContent = initials || "VA";
+
+        $("topbar-name").textContent = firstName;
+
+
+        // DATE
+        $("current-date").textContent =
+            new Intl.DateTimeFormat("en-IN", {
+                weekday: "short",
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }).format(new Date());
+
+
+        // LOAD STATISTICS
+        await loadStatistics(supabase);
+
+
+        // DATABASE STATUS
+        $("database-status").textContent = "CONNECTED";
+
+        $("database-status").className = "health-ok";
+
+
+        // LOGOUT
+        $("logout-button").addEventListener(
+            "click",
+            async () => {
+
+                const { error } = await supabase.auth.signOut();
+
+                if (error) {
+                    alert("Unable to log out. Please try again.");
+                    return;
+                }
+
+                window.location.href = "/admin/login.html";
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error("Dashboard initialization failed:", error);
+
+        $("database-status").textContent = "UNAVAILABLE";
+
+        $("database-status").className = "health-error";
+
+    }
+
+}
+
+
+// LOAD STATISTICS
+async function loadStatistics(supabase) {
+
+    const tables = [
+
+        ["events", "event-count"],
+
+        ["projects", "project-count"],
+
+        ["team_members", "team-count"],
+
+        ["announcements", "announcement-count"]
+
+    ];
+
+
+    const results = await Promise.all(
+
+        tables.map(async ([table, elementId]) => {
+
+            const { count, error } = await supabase
+                .from(table)
+                .select("*", {
+                    count: "exact",
+                    head: true
+                })
+                .eq("status", "published");
+
+
+            $(elementId).textContent =
+                error ? "—" : (count ?? 0);
+
+            return !error;
+
+        })
+
+    );
+
+
+    if (results.some(result => !result)) {
+
+        $("database-status").textContent = "PARTIAL";
+
+        $("database-status").className = "health-checking";
+
+    }
+
+}
+
+
+// MOBILE SIDEBAR
+$("menu-toggle").addEventListener("click", () => {
+
+    $("sidebar").classList.toggle("sidebar-open");
+
+});
+
+
+document.addEventListener("click", (event) => {
+
+    if (
+        window.innerWidth <= 750 &&
+        $("sidebar").classList.contains("sidebar-open") &&
+        !$("sidebar").contains(event.target) &&
+        !$("menu-toggle").contains(event.target)
+    ) {
+
+        $("sidebar").classList.remove("sidebar-open");
+
+    }
+
+});
+
+
+// SETTINGS PLACEHOLDER
+$("settings-link").addEventListener("click", (event) => {
+
+    event.preventDefault();
+
+    alert("Settings module is coming soon.");
+
+});
+
+
+// ICONS
+if (window.lucide) {
+    lucide.createIcons();
+}
+
+
+// INITIALIZE
+startDashboard();
+
+</script>
+
+</body>
+</html>

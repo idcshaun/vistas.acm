@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,107 @@
 
   <link rel="icon" href="assets/vistas-acm-blue-logo.jpg">
   <link rel="stylesheet" href="assets/site.css">
+
+  <!-- TEAM PREVIEW STYLES -->
+  <style>
+    .team-showcase {
+      display: grid;
+      grid-template-columns: 1.35fr .85fr;
+      min-height: 420px;
+      margin-top: 52px;
+      overflow: hidden;
+      background: var(--deep);
+      border: 1px solid var(--line);
+    }
+
+    .team-preview-visual {
+      min-height: 420px;
+      overflow: hidden;
+      background: #071326;
+    }
+
+    .team-preview-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity .5s ease, transform .8s ease;
+    }
+
+    .team-preview-visual img.is-changing {
+      opacity: 0;
+      transform: scale(1.035);
+    }
+
+    .team-preview-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 5vw, 64px);
+    }
+
+    .team-preview-kicker {
+      color: var(--muted);
+      font: 500 11px/1.5 "DM Mono", monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .team-preview-info h3 {
+      margin: 20px 0 12px;
+      font: 700 clamp(34px, 4.5vw, 62px)/.98 "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .team-preview-info p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .team-preview-progress {
+      height: 2px;
+      width: 100%;
+      margin-top: 34px;
+      overflow: hidden;
+      background: rgba(255,255,255,.12);
+    }
+
+    .team-preview-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: currentColor;
+    }
+
+    @media(max-width: 760px) {
+      .team-showcase {
+        grid-template-columns: 1fr;
+      }
+
+      .team-preview-visual,
+      .team-preview-visual img {
+        min-height: 340px;
+        height: 340px;
+      }
+
+      .team-preview-info {
+        min-height: 210px;
+        padding: 28px;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      .team-preview-visual img {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body data-page="home" class="home">
@@ -55,7 +155,6 @@
       <a class="l" data-p="contact" href="contact.html">Contact</a>
     </div>
 
-    <!-- INSTAGRAM NAVBAR ICON -->
     <a class="instagram-link"
        href="https://www.instagram.com/vistas_acm/"
        target="_blank"
@@ -69,7 +168,6 @@
           fill="none" stroke="currentColor" stroke-width="1.8"/>
         <circle cx="17.5" cy="6.8" r="1.1" fill="currentColor"/>
       </svg>
-
     </a>
 
     <a class="cta" data-p="contact" href="contact.html">
@@ -78,68 +176,7 @@
 
   </nav>
 
-  <!-- MAIN CONTENT -->
   <main id="top">
-
-    <!-- INSTAGRAM SECTION -->
-    <section class="instagram-section">
-      <div class="wrap">
-
-        <div class="sh rv">
-
-          <div>
-            <span class="mono">07 / SOCIAL CONNECT</span>
-
-            <h2 style="margin-top:18px">
-              Follow the<br>
-              <span>journey.</span>
-            </h2>
-          </div>
-
-          <div>
-            <p class="lead">
-              Discover our latest workshops, events, projects,
-              behind-the-scenes moments, and everything happening
-              at VISTAS ACM.
-            </p>
-
-            <div style="margin-top:18px">
-              <a
-                class="btn p"
-                href="https://www.instagram.com/vistas_acm/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Follow @vistas_acm ↗
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- INSTAGRAM FEED PLACEHOLDER -->
-        <div class="instagram-feed" id="instagram-feed">
-
-          <div class="instagram-placeholder">
-            <span class="mono">INSTAGRAM / VISTAS ACM</span>
-
-            <h3>Life at VISTAS.</h3>
-
-            <p>Workshops. Ideas. People. Possibilities.</p>
-
-            <a
-              href="https://www.instagram.com/vistas_acm/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Explore our Instagram ↗
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
 
     <!-- HERO SECTION -->
     <header class="hero">
@@ -147,7 +184,6 @@
       <canvas id="fx" aria-hidden="true"></canvas>
 
       <div class="wrap">
-
         <div>
           <span class="mono">VISTAS ACM · Ideas into impact</span>
 
@@ -158,7 +194,8 @@
           </h1>
 
           <p class="lead">
-            A community for curious minds, practical ideas, and better things built together.
+            A community for curious minds, practical ideas,
+            and better things built together.
           </p>
 
           <div class="acts">
@@ -173,7 +210,6 @@
         </div>
 
         <div class="mark" aria-hidden="true">
-
           <svg viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="49"/>
             <circle class="dot" cx="50" cy="1" r="1.6"/>
@@ -185,9 +221,7 @@
           </svg>
 
           <img src="assets/vistas-acm-blue-logo.jpg" alt="">
-
         </div>
-
       </div>
 
       <div class="scroll mono" aria-hidden="true">
@@ -220,7 +254,6 @@
       <div class="wrap">
 
         <div class="sh rv">
-
           <div>
             <span class="mono">01 / About</span>
 
@@ -232,7 +265,8 @@
 
           <div>
             <p class="lead">
-              VISTAS ACM is a place to connect with people who enjoy asking questions and building useful things.
+              VISTAS ACM is a place to connect with people who
+              enjoy asking questions and building useful things.
             </p>
 
             <div style="margin-top:18px">
@@ -241,16 +275,15 @@
               </a>
             </div>
           </div>
-
         </div>
 
         <div class="steps">
-
           <div class="step rv">
             <b>01</b>
             <h3>Explore</h3>
             <p>
-              Discover a new topic, ask a better question, and learn alongside your peers.
+              Discover a new topic, ask a better question,
+              and learn alongside your peers.
             </p>
           </div>
 
@@ -258,7 +291,8 @@
             <b>02</b>
             <h3>Make</h3>
             <p>
-              Turn a thought into a prototype, a project, or a shared experience.
+              Turn a thought into a prototype, a project,
+              or a shared experience.
             </p>
           </div>
 
@@ -266,10 +300,10 @@
             <b>03</b>
             <h3>Share</h3>
             <p>
-              Exchange what you know and make the community stronger for the next person.
+              Exchange what you know and make the community
+              stronger for the next person.
             </p>
           </div>
-
         </div>
 
       </div>
@@ -280,7 +314,6 @@
       <div class="wrap">
 
         <div class="sh rv">
-
           <div>
             <span class="mono">02 / Domains</span>
 
@@ -292,7 +325,8 @@
 
           <div>
             <p class="lead">
-              Computing is a wide world. Explore the areas that spark questions and invite experimentation.
+              Computing is a wide world. Explore the areas
+              that spark questions and invite experimentation.
             </p>
 
             <div style="margin-top:18px">
@@ -301,11 +335,9 @@
               </a>
             </div>
           </div>
-
         </div>
 
         <div class="row">
-
           <a class="mini rv" data-p="domains" href="domains.html">
             <span class="ic">✳</span>
             <b>AI &amp; Machine Learning</b>
@@ -330,7 +362,6 @@
             <span class="ic">⌘</span>
             <b>Emerging Tech</b>
           </a>
-
         </div>
 
       </div>
@@ -341,7 +372,6 @@
       <div class="wrap">
 
         <div class="sh rv">
-
           <div>
             <span class="mono">03 / Events</span>
 
@@ -353,7 +383,8 @@
 
           <div>
             <p class="lead">
-              Workshops, talks, and community moments where ideas meet people.
+              Workshops, talks, and community moments
+              where ideas meet people.
             </p>
 
             <div style="margin-top:18px">
@@ -362,7 +393,6 @@
               </a>
             </div>
           </div>
-
         </div>
 
         <div class="grid3" data-grid="events" data-limit="3"></div>
@@ -375,7 +405,6 @@
       <div class="wrap">
 
         <div class="sh rv">
-
           <div>
             <span class="mono">04 / Projects</span>
 
@@ -387,7 +416,8 @@
 
           <div>
             <p class="lead">
-              Ideas built by curious people, from first prototypes to collaborative projects.
+              Ideas built by curious people, from first prototypes
+              to collaborative projects.
             </p>
 
             <div style="margin-top:18px">
@@ -396,7 +426,6 @@
               </a>
             </div>
           </div>
-
         </div>
 
         <div class="grid3" data-grid="projects" data-limit="3"></div>
@@ -405,11 +434,10 @@
     </section>
 
     <!-- TEAM SECTION -->
-    <section>
+    <section id="team-preview-section">
       <div class="wrap">
 
         <div class="sh rv">
-
           <div>
             <span class="mono">05 / Team</span>
 
@@ -421,7 +449,8 @@
 
           <div>
             <p class="lead">
-              Fifteen people shaping the community. Scroll through each profile on the team page.
+              Meet the people shaping our community and
+              bringing ideas to life at VISTAS ACM.
             </p>
 
             <div style="margin-top:18px">
@@ -430,15 +459,38 @@
               </a>
             </div>
           </div>
-
         </div>
 
-        <div class="tz rv">
-          <div class="wd on" aria-hidden="true">Build</div>
+        <!-- AUTOMATIC TEAM SLIDESHOW -->
+        <div class="team-showcase rv" id="team-showcase" aria-live="polite">
 
-          <div class="sl on">
-            <img src="assets/member-01.webp" alt="Portrait of member 01">
+          <div class="team-preview-visual">
+            <img
+              id="team-preview-image"
+              src="assets/vistas-acm-blue-logo.jpg"
+              alt="VISTAS ACM team member"
+              loading="lazy"
+            >
           </div>
+
+          <div class="team-preview-info">
+            <span class="team-preview-kicker">
+              VISTAS ACM / OUR PEOPLE
+            </span>
+
+            <h3 id="team-preview-name">
+              Meet our team.
+            </h3>
+
+            <p id="team-preview-role">
+              The people behind the chapter.
+            </p>
+
+            <div class="team-preview-progress" aria-hidden="true">
+              <span id="team-preview-progress"></span>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -449,7 +501,6 @@
       <div class="wrap">
 
         <div class="sh rv">
-
           <div>
             <span class="mono">06 / Gallery</span>
 
@@ -461,7 +512,8 @@
 
           <div>
             <p class="lead">
-              A visual archive of the people, ideas, and projects that make up the chapter.
+              A visual archive of the people, ideas, and
+              projects that make up the chapter.
             </p>
 
             <div style="margin-top:18px">
@@ -470,7 +522,6 @@
               </a>
             </div>
           </div>
-
         </div>
 
         <div class="gal" data-grid="gallery" data-limit="4"></div>
@@ -479,6 +530,55 @@
     </section>
 
   </main>
+  
+   <!-- INSTAGRAM SECTION -->
+    <section class="instagram-section">
+      <div class="wrap">
+
+        <div class="sh rv">
+          <div>
+            <span class="mono">07 / SOCIAL CONNECT</span>
+
+            <h2 style="margin-top:18px">
+              Follow the<br>
+              <span>journey.</span>
+            </h2>
+          </div>
+
+          <div>
+            <p class="lead">
+              Discover our latest workshops, events, projects,
+              behind-the-scenes moments, and everything happening
+              at VISTAS ACM.
+            </p>
+
+            <div style="margin-top:18px">
+              <a class="btn p"
+                 href="https://www.instagram.com/vistas_acm/"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                Follow @vistas_acm ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="instagram-feed" id="instagram-feed">
+          <div class="instagram-placeholder">
+            <span class="mono">INSTAGRAM / VISTAS ACM</span>
+            <h3>Life at VISTAS.</h3>
+            <p>Workshops. Ideas. People. Possibilities.</p>
+
+            <a href="https://www.instagram.com/vistas_acm/"
+               target="_blank"
+               rel="noopener noreferrer">
+              Explore our Instagram ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
   <!-- FOOTER -->
   <footer>
@@ -504,7 +604,6 @@
           <a data-p="contact" href="contact.html">Contact</a>
         </nav>
 
-        <!-- INSTAGRAM FOOTER LINK -->
         <a class="footer-instagram"
            href="https://www.instagram.com/vistas_acm/"
            target="_blank"
@@ -535,8 +634,176 @@
     </div>
   </footer>
 
+  <!-- EXISTING SITE JAVASCRIPT -->
   <script src="assets/site.js"></script>
+
+  <!-- TEAM PREVIEW SLIDESHOW -->
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    (() => {
+      const image = document.getElementById("team-preview-image");
+      const name = document.getElementById("team-preview-name");
+      const role = document.getElementById("team-preview-role");
+      const progress = document.getElementById("team-preview-progress");
+      const showcase = document.getElementById("team-showcase");
+
+      if (!image || !name || !role || !showcase) return;
+
+      const INTERVAL = 5000;
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      let members = [];
+      let currentIndex = 0;
+      let timer = null;
+      let paused = false;
+
+      function updateProgress() {
+        if (!progress) return;
+
+        progress.style.transition = "none";
+        progress.style.width = "0%";
+
+        if (paused || reducedMotion) return;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            progress.style.transition = `width ${INTERVAL}ms linear`;
+            progress.style.width = "100%";
+          });
+        });
+      }
+
+      function displayMember(index) {
+        if (!members.length) return;
+
+        const member = members[index];
+
+        image.classList.add("is-changing");
+
+        window.setTimeout(() => {
+          image.src = member.image_url;
+          image.alt = `${member.name || "Team member"} - VISTAS ACM`;
+
+          name.textContent = member.name || "VISTAS ACM";
+
+          role.textContent = [
+            member.designation,
+            member.domain
+          ].filter(Boolean).join(" · ") || "VISTAS ACM Team";
+
+          image.classList.remove("is-changing");
+          updateProgress();
+        }, reducedMotion ? 0 : 350);
+      }
+
+      function stopSlideshow() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function startSlideshow() {
+        stopSlideshow();
+
+        if (
+          members.length < 2 ||
+          reducedMotion ||
+          paused ||
+          document.hidden
+        ) return;
+
+        timer = setInterval(() => {
+          currentIndex = (currentIndex + 1) % members.length;
+          displayMember(currentIndex);
+        }, INTERVAL);
+      }
+
+      async function loadTeam() {
+        try {
+          const response = await fetch("/api/config", {
+            cache: "no-store"
+          });
+
+          if (!response.ok) {
+            throw new Error("Unable to load website configuration.");
+          }
+
+          const config = await response.json();
+
+          if (!config.supabaseUrl || !config.supabaseKey) {
+            throw new Error("Supabase configuration is incomplete.");
+          }
+
+          const supabase = createClient(
+            config.supabaseUrl,
+            config.supabaseKey
+          );
+
+          const { data, error } = await supabase
+            .from("team_members")
+            .select("name, designation, domain, image_url, display_order")
+            .eq("status", "published")
+            .not("image_url", "is", null)
+            .order("display_order", { ascending: true });
+
+          if (error) throw error;
+
+          members = (data || []).filter(member =>
+            member.image_url &&
+            typeof member.image_url === "string"
+          );
+
+          if (!members.length) {
+            name.textContent = "Our team.";
+            role.textContent = "Meet the people behind VISTAS ACM.";
+            return;
+          }
+
+          currentIndex = 0;
+          displayMember(currentIndex);
+          startSlideshow();
+
+        } catch (error) {
+          console.error("Team preview error:", error);
+
+          name.textContent = "Meet our team.";
+          role.textContent =
+            "Discover the people behind VISTAS ACM.";
+        }
+      }
+
+      // Pause while the visitor hovers over the preview.
+      showcase.addEventListener("mouseenter", () => {
+        paused = true;
+        stopSlideshow();
+
+        if (progress) {
+          progress.style.transition = "none";
+        }
+      });
+
+      showcase.addEventListener("mouseleave", () => {
+        paused = false;
+        updateProgress();
+        startSlideshow();
+      });
+
+      // Stop the slideshow when the browser tab is hidden.
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopSlideshow();
+        } else {
+          startSlideshow();
+        }
+      });
+
+      loadTeam();
+    })();
+  </script>
 
 </body>
 </html>
-```

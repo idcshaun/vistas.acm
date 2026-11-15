@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | VISTAS ACM</title>
+
+    <link rel="stylesheet" href="../assets/admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="admin-login">
+
+    <main class="login-container">
+
+        <div class="login-brand">
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+            <span>VISTAS <b>ACM</b></span>
+        </div>
+
+        <div class="login-content">
+
+            <span class="login-label">ADMINISTRATION PORTAL</span>
+
+            <h1>Welcome<br>back.</h1>
+
+            <p>Sign in to manage the VISTAS ACM website.</p>
+
+            <form id="login-form">
+
+                <label for="email">EMAIL ADDRESS</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="admin@example.com"
+                    required
+                >
+
+                <label for="password">PASSWORD</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button type="submit" id="login-button">
+                    ACCESS DASHBOARD →
+                </button>
+
+                <p id="login-message"></p>
+
+            </form>
+
+        </div>
+
+        <footer>
+            VISTAS ACM STUDENT CHAPTER · ADMIN ACCESS
+        </footer>
+
+    </main>
+
+    <script type="module" src="../assets/admin.js"></script>
+
+</body>
+</html>

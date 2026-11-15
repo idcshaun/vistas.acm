@@ -8,6 +8,14 @@ const PORT = process.env.PORT || 3000;
 // Serve the existing website files
 app.use(express.static(path.join(__dirname, "..")));
 
+// Public Supabase configuration
+app.get("/api/config", (req, res) => {
+  res.json({
+    supabaseUrl: process.env.SUPABASE_URL,
+    supabaseKey: process.env.SUPABASE_ANON_KEY
+  });
+});
+
 // Instagram feed API
 app.get("/api/instagram", async (req, res) => {
   try {

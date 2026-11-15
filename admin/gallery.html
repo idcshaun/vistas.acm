@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gallery | VISTAS ACM Control Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/admin.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+
+        <a href="dashboard.html" class="sidebar-brand">
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+
+            <div class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </div>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <span>◈</span>
+                Overview
+            </a>
+
+            <a href="events.html" class="nav-item">
+                <span>▣</span>
+                Events
+            </a>
+
+            <a href="projects.html" class="nav-item">
+                <span>⌘</span>
+                Projects
+            </a>
+
+            <a href="team.html" class="nav-item">
+                <span>♙</span>
+                Team Members
+            </a>
+
+            <a href="announcements.html" class="nav-item">
+                <span>◉</span>
+                Announcements
+            </a>
+
+            <a href="gallery.html" class="nav-item active">
+                <span>▧</span>
+                Gallery
+                <i class="nav-active-indicator"></i>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label sidebar-label-spaced">SYSTEM</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="../index.html" target="_blank" class="nav-item">
+                <span>↗</span>
+                View Website
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+                <div class="admin-avatar" id="admin-avatar">AC</div>
+
+                <div class="admin-profile-info">
+                    <strong id="admin-name">Administrator</strong>
+                    <small>ADMINISTRATOR</small>
+                </div>
+
+                <button class="icon-button sidebar-logout" id="logout-btn" title="Logout">
+                    ↗
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                SYSTEM OPERATIONAL
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button class="icon-button menu-toggle" id="menu-toggle">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    CONTROL CENTER
+                    <span>/</span>
+                    <strong>GALLERY</strong>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+                    <span class="live-indicator"></span>
+                    ALL SYSTEMS NORMAL
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date"></div>
+
+                <div class="topbar-user">
+                    <div class="topbar-user-avatar">AC</div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="dashboard-content">
+
+            <!-- HERO -->
+            <section class="control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+                        <span></span>
+                        MEDIA MANAGEMENT
+                        <b>/ 06</b>
+                    </div>
+
+                    <h1>CAPTURED<br><span>MEMORIES.</span></h1>
+
+                    <p>
+                        Preserve the moments, people and milestones
+                        that make the VISTAS ACM community special.
+                        Manage your chapter's visual archive.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <button class="primary-button" id="add-gallery-btn">
+                            + UPLOAD MEDIA
+                        </button>
+
+                        <a href="../index.html" target="_blank" class="hero-secondary-link">
+                            View website ↗
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-art">
+
+                    <div class="hero-orbit"></div>
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">G<span>A</span></div>
+
+                    <div class="hero-art-caption">
+                        CAPTURE<br>COLLECT<br>REMEMBER
+                    </div>
+
+                    <div class="hero-art-index">06 / 06</div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">MEDIA ANALYTICS</div>
+                        <h2>GALLERY OVERVIEW</h2>
+                    </div>
+
+                    <div class="section-note">
+                        <span class="live-indicator"></span>
+                        LIVE DATA
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid control-stats">
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            TOTAL MEDIA
+                            <span class="stat-icon">▧</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="total-media">0</h2>
+                        </div>
+
+                        <p>All gallery entries</p>
+
+                        <div class="stat-card-accent accent-blue"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            PUBLISHED
+                            <span class="stat-icon">✓</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="published-media">0</h2>
+                        </div>
+
+                        <p>Visible on the website</p>
+
+                        <div class="stat-card-accent accent-green"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            DRAFTS
+                            <span class="stat-icon">◷</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="draft-media">0</h2>
+                        </div>
+
+                        <p>Awaiting publication</p>
+
+                        <div class="stat-card-accent accent-violet"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            EVENTS FEATURED
+                            <span class="stat-icon">▣</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="gallery-events">0</h2>
+                        </div>
+
+                        <p>Unique event collections</p>
+
+                        <div class="stat-card-accent accent-cyan"></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- GALLERY FILTERS -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">MEDIA LIBRARY</div>
+                        <h2>ALL MEDIA</h2>
+                    </div>
+
+                    <div class="section-note">
+                        VISUAL ARCHIVE
+                    </div>
+
+                </div>
+
+
+                <div class="events-toolbar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="search"
+                            id="gallery-search"
+                            placeholder="Search gallery..."
+                        >
+
+                    </div>
+
+
+                    <select id="gallery-status-filter">
+
+                        <option value="all">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+
+                    </select>
+
+
+                    <select id="gallery-event-filter">
+
+                        <option value="all">All Events</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- GALLERY GRID -->
+                <div
+                    id="gallery-grid"
+                    class="gallery-grid"
+                >
+
+                    <div class="gallery-loading">
+                        Loading gallery...
+                    </div>
+
+                </div>
+
+                <div class="event-message" id="gallery-message"></div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="control-footer">
+
+                <span>VISTAS ACM STUDENT CHAPTER</span>
+
+                <span>
+                    CONTROL CENTER
+                    <b>•</b>
+                    MEDIA MANAGEMENT
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- GALLERY MODAL -->
+<div class="event-modal" id="gallery-modal">
+
+    <div class="event-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="section-eyebrow">
+                    MEDIA MANAGEMENT
+                </div>
+
+                <h2 id="gallery-modal-title">
+                    UPLOAD MEDIA
+                </h2>
+
+            </div>
+
+            <button class="modal-close" id="close-gallery-modal">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="gallery-form">
+
+            <input type="hidden" id="gallery-id">
+
+
+            <!-- TITLE -->
+            <label for="gallery-title">
+                MEDIA TITLE
+            </label>
+
+            <input
+                type="text"
+                id="gallery-title"
+                placeholder="Enter image title"
+                required
+            >
+
+
+            <!-- DESCRIPTION -->
+            <label for="gallery-description">
+                DESCRIPTION
+            </label>
+
+            <textarea
+                id="gallery-description"
+                placeholder="Describe this moment..."
+            ></textarea>
+
+
+            <!-- MEDIA TYPE -->
+            <div class="form-row">
+
+                <div>
+
+                    <label for="gallery-media-type">
+                        MEDIA TYPE
+                    </label>
+
+                    <select id="gallery-media-type">
+
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="gallery-status">
+                        STATUS
+                    </label>
+
+                    <select id="gallery-status">
+
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="archived">Archived</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT NAME -->
+            <label for="gallery-event-name">
+                EVENT / COLLECTION NAME
+            </label>
+
+            <input
+                type="text"
+                id="gallery-event-name"
+                placeholder="Tech Symposium 2026"
+            >
+
+
+            <!-- MEDIA UPLOAD -->
+            <label>
+                MEDIA FILE
+            </label>
+
+            <div class="image-upload-area">
+
+                <label class="upload-box" for="gallery-file">
+
+                    <span>↑</span>
+
+                    <strong>Upload media</strong>
+
+                    <span>
+                        Images: JPG, PNG, WEBP · Maximum 5MB
+                    </span>
+
+                </label>
+
+                <input
+                    type="file"
+                    id="gallery-file"
+                    accept="image/png,image/jpeg,image/webp,video/mp4,video/webm"
+                    hidden
+                >
+
+
+                <div class="image-preview" id="gallery-file-preview">
+
+                    <img
+                        id="gallery-preview-image"
+                        src=""
+                        alt="Gallery preview"
+                    >
+
+                    <button type="button" id="remove-gallery-file">
+                        REMOVE MEDIA
+                    </button>
+
+                </div>
+
+                <div id="gallery-upload-status"></div>
+
+            </div>
+
+
+            <!-- DISPLAY ORDER -->
+            <label for="gallery-order">
+                DISPLAY ORDER
+            </label>
+
+            <input
+                type="number"
+                id="gallery-order"
+                value="0"
+                min="0"
+            >
+
+
+            <!-- ACTIONS -->
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancel-gallery"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="save-gallery"
+                >
+                    SAVE MEDIA
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script type="module" src="../assets/gallery.js"></script>
+
+<script>
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("admin-sidebar");
+
+    menuToggle?.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-open");
+    });
+
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            window.innerWidth <= 750 &&
+            sidebar.classList.contains("sidebar-open") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("sidebar-open");
+        }
+
+    });
+
+
+    const dateElement = document.getElementById("current-date");
+
+    if (dateElement) {
+
+        dateElement.textContent = new Intl.DateTimeFormat("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }).format(new Date());
+
+    }
+
+</script>
+
+
+<!-- PAGE-SPECIFIC STYLES -->
+<style>
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .gallery-card {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        transition: .2s;
+    }
+
+    .gallery-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(69,162,255,.4);
+    }
+
+    .gallery-card-image {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+        background: #080f1e;
+    }
+
+    .gallery-card-image img,
+    .gallery-card-image video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .gallery-card-content {
+        padding: 15px;
+    }
+
+    .gallery-card-content h3 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 12px;
+    }
+
+    .gallery-card-content p {
+        margin: 7px 0;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.6;
+    }
+
+    .gallery-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 13px;
+    }
+
+    .gallery-card-actions {
+        display: flex;
+        gap: 7px;
+    }
+
+    .gallery-card-actions button {
+        width: 29px;
+        height: 29px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+    }
+
+    .gallery-card-actions button:hover {
+        border-color: var(--blue);
+        color: var(--blue);
+    }
+
+    .gallery-loading {
+        grid-column: 1 / -1;
+        padding: 40px;
+        border: 1px dashed var(--line);
+        border-radius: 9px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 11px;
+    }
+
+    @media(max-width: 1000px) {
+        .gallery-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media(max-width: 560px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+</style>
+
+</body>
+</html>
