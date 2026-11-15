@@ -638,172 +638,326 @@
   <script src="assets/site.js"></script>
 
   <!-- TEAM PREVIEW SLIDESHOW -->
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    (() => {
-      const image = document.getElementById("team-preview-image");
-      const name = document.getElementById("team-preview-name");
-      const role = document.getElementById("team-preview-role");
-      const progress = document.getElementById("team-preview-progress");
-      const showcase = document.getElementById("team-showcase");
+(() => {
+  const image = document.getElementById("team-preview-image");
+  const name = document.getElementById("team-preview-name");
+  const role = document.getElementById("team-preview-role");
+  const progress = document.getElementById("team-preview-progress");
+  const showcase = document.getElementById("team-showcase");
 
-      if (!image || !name || !role || !showcase) return;
+  if (!image || !name || !role || !showcase) return;
 
-      const INTERVAL = 5000;
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+  const INTERVAL = 5000;
 
-      let members = [];
-      let currentIndex = 0;
-      let timer = null;
-      let paused = false;
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
-      function updateProgress() {
-        if (!progress) return;
+  const desktopPointer = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  );
 
-        progress.style.transition = "none";
-        progress.style.width = "0%";
+  let members = [];
+  let currentIndex = 0;
+  let timer = null;
+  let paused = false;
+  let visible = true;
+  let changeTimeout = null;
 
-        if (paused || reducedMotion) return;
+  // UPDATE PROGRESS BAR
+  function updateProgress() {
+    if (!progress) return;
 
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            progress.style.transition = `width ${INTERVAL}ms linear`;
-            progress.style.width = "100%";
-          });
-        });
+    progress.style.transition = "none";
+    progress.style.width = "0%";
+
+    if (paused || !visible) return;
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        progress.style.transition =
+          `width ${INTERVAL}ms linear`;
+
+        progress.style.width = "100%";
+      });
+    });
+  }
+
+  // DISPLAY MEMBER
+  function displayMember(index) {
+    if (!members.length) return;
+
+    const member = members[index];
+
+    if (changeTimeout) {
+      clearTimeout(changeTimeout);
+    }
+
+    image.classList.add("is-changing");
+
+    changeTimeout = setTimeout(() => {
+
+      image.onload = () => {
+        image.classList.remove("is-changing");
+      };
+
+      image.onerror = () => {
+        image.classList.remove("is-changing");
+        console.error("Unable to load team image:", member.image_url);
+      };
+
+      image.src = member.image_url;
+
+      image.alt =
+        `${member.name || "Team member"} - VISTAS ACM`;
+
+      name.textContent =
+        member.name || "VISTAS ACM";
+
+      role.textContent = [
+        member.designation,
+        member.domain
+      ].filter(Boolean).join(" · ") || "VISTAS ACM Team";
+
+      if (image.complete) {
+        image.classList.remove("is-changing");
       }
 
-      function displayMember(index) {
-        if (!members.length) return;
+      updateProgress();
 
-        const member = members[index];
+    }, reducedMotion ? 0 : 350);
+  }
 
-        image.classList.add("is-changing");
+  // STOP SLIDESHOW
+  function stopSlideshow() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
 
-        window.setTimeout(() => {
-          image.src = member.image_url;
-          image.alt = `${member.name || "Team member"} - VISTAS ACM`;
+  // START SLIDESHOW
+  function startSlideshow() {
+    stopSlideshow();
 
-          name.textContent = member.name || "VISTAS ACM";
+    if (
+      members.length < 2 ||
+      paused ||
+      !visible ||
+      document.hidden
+    ) {
+      return;
+    }
 
-          role.textContent = [
-            member.designation,
-            member.domain
-          ].filter(Boolean).join(" · ") || "VISTAS ACM Team";
+    timer = setInterval(() => {
 
-          image.classList.remove("is-changing");
-          updateProgress();
-        }, reducedMotion ? 0 : 350);
-      }
+      currentIndex =
+        (currentIndex + 1) % members.length;
 
-      function stopSlideshow() {
-        if (timer) {
-          clearInterval(timer);
-          timer = null;
-        }
-      }
+      displayMember(currentIndex);
 
-      function startSlideshow() {
-        stopSlideshow();
+    }, INTERVAL);
+  }
 
-        if (
-          members.length < 2 ||
-          reducedMotion ||
-          paused ||
-          document.hidden
-        ) return;
+  // NEXT SLIDE
+  function nextSlide() {
+    if (members.length < 2) return;
 
-        timer = setInterval(() => {
-          currentIndex = (currentIndex + 1) % members.length;
-          displayMember(currentIndex);
-        }, INTERVAL);
-      }
+    currentIndex =
+      (currentIndex + 1) % members.length;
 
-      async function loadTeam() {
-        try {
-          const response = await fetch("/api/config", {
-            cache: "no-store"
-          });
+    displayMember(currentIndex);
 
-          if (!response.ok) {
-            throw new Error("Unable to load website configuration.");
-          }
+    startSlideshow();
+  }
 
-          const config = await response.json();
+  // LOAD TEAM FROM SUPABASE
+  async function loadTeam() {
+    try {
 
-          if (!config.supabaseUrl || !config.supabaseKey) {
-            throw new Error("Supabase configuration is incomplete.");
-          }
-
-          const supabase = createClient(
-            config.supabaseUrl,
-            config.supabaseKey
-          );
-
-          const { data, error } = await supabase
-            .from("team_members")
-            .select("name, designation, domain, image_url, display_order")
-            .eq("status", "published")
-            .not("image_url", "is", null)
-            .order("display_order", { ascending: true });
-
-          if (error) throw error;
-
-          members = (data || []).filter(member =>
-            member.image_url &&
-            typeof member.image_url === "string"
-          );
-
-          if (!members.length) {
-            name.textContent = "Our team.";
-            role.textContent = "Meet the people behind VISTAS ACM.";
-            return;
-          }
-
-          currentIndex = 0;
-          displayMember(currentIndex);
-          startSlideshow();
-
-        } catch (error) {
-          console.error("Team preview error:", error);
-
-          name.textContent = "Meet our team.";
-          role.textContent =
-            "Discover the people behind VISTAS ACM.";
-        }
-      }
-
-      // Pause while the visitor hovers over the preview.
-      showcase.addEventListener("mouseenter", () => {
-        paused = true;
-        stopSlideshow();
-
-        if (progress) {
-          progress.style.transition = "none";
-        }
+      const response = await fetch("/api/config", {
+        cache: "no-store"
       });
 
-      showcase.addEventListener("mouseleave", () => {
-        paused = false;
+      if (!response.ok) {
+        throw new Error("Unable to load website configuration.");
+      }
+
+      const config = await response.json();
+
+      if (!config.supabaseUrl || !config.supabaseKey) {
+        throw new Error("Supabase configuration is incomplete.");
+      }
+
+      const supabase = createClient(
+        config.supabaseUrl,
+        config.supabaseKey
+      );
+
+      const { data, error } = await supabase
+        .from("team_members")
+        .select(
+          "name, designation, domain, image_url, display_order"
+        )
+        .eq("status", "published")
+        .not("image_url", "is", null)
+        .order("display_order", {
+          ascending: true
+        });
+
+      if (error) throw error;
+
+      members = (data || []).filter(member =>
+        member.image_url &&
+        typeof member.image_url === "string"
+      );
+
+      if (!members.length) {
+        name.textContent = "Our team.";
+        role.textContent =
+          "Meet the people behind VISTAS ACM.";
+
+        return;
+      }
+
+      currentIndex = 0;
+
+      displayMember(currentIndex);
+
+      startSlideshow();
+
+      console.log(
+        "Team slideshow loaded:",
+        members.length,
+        "members"
+      );
+
+    } catch (error) {
+
+      console.error("Team slideshow error:", error);
+
+      name.textContent = "Meet our team.";
+
+      role.textContent =
+        "Discover the people behind VISTAS ACM.";
+
+    }
+  }
+
+  // DESKTOP ONLY: PAUSE ON HOVER
+  if (desktopPointer.matches) {
+
+    showcase.addEventListener("mouseenter", () => {
+
+      paused = true;
+
+      stopSlideshow();
+
+      if (progress) {
+        progress.style.transition = "none";
+      }
+
+    });
+
+    showcase.addEventListener("mouseleave", () => {
+
+      paused = false;
+
+      updateProgress();
+
+      startSlideshow();
+
+    });
+
+  }
+
+  // HANDLE PHONE VISIBILITY
+  if ("IntersectionObserver" in window) {
+
+    const observer = new IntersectionObserver(entries => {
+
+      visible = entries[0].isIntersecting;
+
+      if (visible) {
         updateProgress();
         startSlideshow();
-      });
+      } else {
+        stopSlideshow();
+      }
 
-      // Stop the slideshow when the browser tab is hidden.
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          stopSlideshow();
-        } else {
-          startSlideshow();
-        }
-      });
+    }, {
+      threshold: 0.15
+    });
 
-      loadTeam();
-    })();
-  </script>
+    observer.observe(showcase);
+
+  }
+
+  // HANDLE TAB VISIBILITY
+  document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+
+      stopSlideshow();
+
+    } else {
+
+      startSlideshow();
+
+    }
+
+  });
+
+  // TOUCH SWIPE SUPPORT
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  showcase.addEventListener("touchstart", event => {
+
+    touchStartX = event.changedTouches[0].screenX;
+
+  }, {
+    passive: true
+  });
+
+  showcase.addEventListener("touchend", event => {
+
+    touchEndX = event.changedTouches[0].screenX;
+
+    const difference = touchStartX - touchEndX;
+
+    if (Math.abs(difference) > 50) {
+
+      if (difference > 0) {
+
+        currentIndex =
+          (currentIndex + 1) % members.length;
+
+      } else {
+
+        currentIndex =
+          (currentIndex - 1 + members.length) % members.length;
+
+      }
+
+      displayMember(currentIndex);
+
+      startSlideshow();
+
+    }
+
+  }, {
+    passive: true
+  });
+
+  // INITIALIZE
+  loadTeam();
+
+})();
+</script>
 
 </body>
 </html>
