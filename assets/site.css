@@ -724,132 +724,62 @@ body.home #wipe{animation:none;transform:translateY(100%)}
 }
 
 /* ==========================================
-   VISTAS ACM — MOBILE TEAM FINAL LAYOUT
+   VISTAS ACM — MOBILE TEAM POLISH
 ========================================== */
 
 @media (max-width: 700px) {
 
-    .ttrack {
-        height: 100svh !important;
-        min-height: 650px !important;
-        overflow: hidden !important;
-    }
-
-    .tstage {
-        position: relative !important;
-        height: 100svh !important;
-        min-height: 650px !important;
-        overflow: hidden !important;
-    }
-
     /* Background word */
     #wds {
-        position: absolute !important;
-        top: 25% !important;
-        left: 0 !important;
-        width: 100% !important;
-        text-align: center !important;
-        z-index: 1 !important;
+        top: 30% !important;
     }
 
     .wd {
-        font-size: clamp(65px, 18vw, 110px) !important;
-        white-space: nowrap !important;
+        font-size: clamp(58px, 16vw, 100px) !important;
+        letter-spacing: -2px;
     }
 
     /* Portrait */
     #sls {
-        position: absolute !important;
-        inset: auto 0 0 !important;
-        width: 100% !important;
         height: 65svh !important;
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: center !important;
-        overflow: hidden !important;
-        z-index: 2 !important;
-    }
-
-    .sl {
-        position: absolute !important;
-        inset: 0 !important;
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: center !important;
     }
 
     .sl img {
-        width: auto !important;
         height: 100% !important;
-        max-width: 100% !important;
         object-fit: contain !important;
         object-position: center bottom !important;
     }
 
-    /* Member information */
-    .info {
-        position: absolute !important;
-        top: auto !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-
-        width: 100% !important;
-        padding: 90px 22px 38px !important;
-
-        text-align: center !important;
-        z-index: 5 !important;
-
-        background: linear-gradient(
-            to bottom,
-            transparent,
-            rgba(2, 9, 22, .72) 35%,
-            rgba(2, 9, 22, .96)
-        ) !important;
-
-        transform: none !important;
+    /* Member counter */
+    .cnt {
+        top: 55% !important;
+        left: 24px !important;
+        z-index: 8 !important;
     }
 
-    #in {
-        font-size: inherit;
+    /* Member details */
+    .info {
+        padding: 75px 20px 38px !important;
     }
 
     #nm {
-        font-size: clamp(38px, 10vw, 52px) !important;
-        line-height: 1 !important;
-        margin: 12px 0 !important;
+        font-size: clamp(32px, 8.5vw, 44px) !important;
+        line-height: 1.05 !important;
+        letter-spacing: -1px;
+        max-width: 100%;
+        margin: 12px auto !important;
+        overflow-wrap: normal;
+        text-wrap: balance;
     }
 
     #rl {
         font-size: 15px !important;
-        line-height: 1.5 !important;
-        margin: 8px 0 !important;
+        margin-top: 10px !important;
     }
 
     #tm {
-        font-size: 11px !important;
-    }
-
-    /* Member counter */
-    .cnt {
-        position: absolute !important;
-        top: 62% !important;
-        left: 20px !important;
-        right: auto !important;
-        bottom: auto !important;
-        z-index: 6 !important;
-    }
-
-    /* Scroll hint */
-    .hint {
-        display: none !important;
-    }
-
-    /* Team label */
-    .tlabel {
-        top: 105px !important;
-        left: 22px !important;
-        z-index: 7 !important;
+        font-size: 10px !important;
+        letter-spacing: 2px;
     }
 
 }
