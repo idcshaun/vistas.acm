@@ -744,23 +744,19 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
     stopSlideshow();
 
     if (
-      members.length < 2 ||
-      paused ||
-      !visible ||
-      document.hidden
+        members.length < 2 ||
+        document.hidden
     ) {
-      return;
+        return;
     }
 
     timer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % members.length;
 
-      currentIndex =
-        (currentIndex + 1) % members.length;
-
-      displayMember(currentIndex);
+        displayMember(currentIndex);
 
     }, INTERVAL);
-  }
+}
 
   // NEXT SLIDE
   function nextSlide() {
@@ -847,32 +843,6 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
     }
   }
 
-  // DESKTOP ONLY: PAUSE ON HOVER
-  if (desktopPointer.matches) {
-
-    showcase.addEventListener("mouseenter", () => {
-
-      paused = true;
-
-      stopSlideshow();
-
-      if (progress) {
-        progress.style.transition = "none";
-      }
-
-    });
-
-    showcase.addEventListener("mouseleave", () => {
-
-      paused = false;
-
-      updateProgress();
-
-      startSlideshow();
-
-    });
-
-  }
 
   // HANDLE PHONE VISIBILITY
   if ("IntersectionObserver" in window) {

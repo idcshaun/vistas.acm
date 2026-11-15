@@ -371,155 +371,6 @@ body.home #wipe{animation:none;transform:translateY(100%)}
   }
 }
 
-/* =========================================
-   VISTAS ACM — RESPONSIVE NAVBAR FIX
-========================================= */
-
-.nav {
-    width: min(1140px, calc(100% - 40px));
-    max-width: 1140px;
-    white-space: normal;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.nav .brand {
-    flex-shrink: 0;
-    margin-right: auto;
-}
-
-.nav .menu {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-}
-
-.nav .instagram-link,
-.nav .cta {
-    flex-shrink: 0;
-}
-
-@media (max-width: 860px) {
-
-    .nav {
-        width: calc(100% - 28px);
-        top: calc(12px + env(safe-area-inset-top));
-        padding: 8px 10px;
-        gap: 8px;
-    }
-
-    .nav .brand {
-        gap: 8px;
-    }
-
-    .nav .brand img {
-        width: 43px;
-        height: 43px;
-    }
-
-    .nav .brand b {
-        font-size: 19px;
-    }
-
-    .nav .brand small {
-        font-size: 8px;
-    }
-
-    .nav .mt {
-        display: block;
-        flex-shrink: 0;
-        font-size: 25px;
-        padding: 8px 12px;
-    }
-
-    .nav .menu {
-        position: absolute;
-        top: calc(100% + 12px);
-        left: 0;
-        right: 0;
-
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-
-        padding: 12px;
-        gap: 4px;
-
-        background: rgba(2, 8, 23, .97);
-        border: 1px solid var(--line);
-        border-radius: 22px;
-
-        backdrop-filter: blur(22px);
-        -webkit-backdrop-filter: blur(22px);
-
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-
-        transform: translateY(-10px);
-
-        transition:
-            opacity .25s ease,
-            transform .25s ease,
-            visibility .25s ease;
-    }
-
-    .nav.o .menu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0);
-    }
-
-    .nav .menu a.l {
-        display: block;
-        padding: 13px 16px;
-        border-radius: 12px;
-        font-size: 15px;
-    }
-
-    .nav .menu a.l.is-active {
-        background: rgba(22, 168, 255, .12);
-    }
-
-    .nav .menu a.l.is-active::after {
-        display: none;
-    }
-
-    .nav .instagram-link {
-        width: 42px;
-        height: 42px;
-    }
-
-    .nav .cta {
-        display: none;
-    }
-}
-
-@media (max-width: 380px) {
-
-    .nav {
-        gap: 4px;
-    }
-
-    .nav .brand img {
-        width: 36px;
-        height: 36px;
-    }
-
-    .nav .brand b {
-        font-size: 16px;
-    }
-
-    .nav .brand small {
-        font-size: 7px;
-    }
-
-    .nav .instagram-link {
-        width: 36px;
-        height: 36px;
-    }
-}
 
 /* =========================================
    VISTAS ACM — TEAM MOBILE REDESIGN
@@ -907,6 +758,98 @@ body.home #wipe{animation:none;transform:translateY(100%)}
         left: 12px;
         right: 12px;
         width: auto;
+    }
+
+}
+
+/* ==========================================
+   MOBILE NAVBAR POSITION FIX
+========================================== */
+
+@media (max-width: 760px) {
+
+    html,
+    body {
+        overflow-x: clip;
+        width: 100%;
+    }
+
+    #nv.nav {
+        position: fixed !important;
+
+        top: max(12px, env(safe-area-inset-top)) !important;
+
+        left: 16px !important;
+        right: 16px !important;
+
+        width: auto !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        box-sizing: border-box !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        gap: 12px;
+
+        z-index: 9999 !important;
+
+        transform: none !important;
+    }
+
+    #nv .brand {
+        display: flex !important;
+        align-items: center !important;
+
+        flex: 1;
+        min-width: 0;
+
+        overflow: hidden;
+    }
+
+    #nv .brand img {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        object-fit: contain;
+    }
+
+    #nv .brand span {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    #nv .brand b {
+        font-size: 17px;
+        white-space: nowrap;
+    }
+
+    #nv .brand small {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    #nv .mt {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        width: 44px;
+        height: 44px;
+    }
+
+    #nv .instagram-link {
+        flex-shrink: 0;
+    }
+
+    #nv .cta {
+        display: none;
     }
 
 }
