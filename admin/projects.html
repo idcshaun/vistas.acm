@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | VISTAS ACM Control Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/admin.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+
+        <a href="dashboard.html" class="sidebar-brand">
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+
+            <div class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </div>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <span>◈</span>
+                Overview
+            </a>
+
+            <a href="events.html" class="nav-item">
+                <span>▣</span>
+                Events
+            </a>
+
+            <a href="projects.html" class="nav-item active">
+                <span>⌘</span>
+                Projects
+                <i class="nav-active-indicator"></i>
+            </a>
+
+            <a href="team.html" class="nav-item">
+                <span>♙</span>
+                Team Members
+            </a>
+
+            <a href="announcements.html" class="nav-item">
+                <span>◉</span>
+                Announcements
+            </a>
+
+            <a href="gallery.html" class="nav-item">
+                <span>▧</span>
+                Gallery
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label sidebar-label-spaced">SYSTEM</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="../index.html" target="_blank" class="nav-item">
+                <span>↗</span>
+                View Website
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+               <div class="admin-avatar" id="admin-avatar">VA</div>
+
+                <div class="admin-profile-info">
+                    <strong id="admin-name">Administrator</strong>
+                    <small>ADMINISTRATOR</small>
+                </div>
+
+                <button class="icon-button sidebar-logout" id="logout-btn" title="Logout">
+                    ↗
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                SYSTEM OPERATIONAL
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button class="icon-button menu-toggle" id="menu-toggle">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    CONTROL CENTER
+                    <span>/</span>
+                    <strong>PROJECTS</strong>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+                    <span class="live-indicator"></span>
+                    ALL SYSTEMS NORMAL
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date"></div>
+
+                <div class="topbar-user">
+
+    <div class="topbar-user-avatar" id="topbar-avatar">
+        VA
+    </div>
+
+    <div class="topbar-user-info">
+        <strong id="topbar-name">Administrator</strong>
+        <small>CONTROL CENTER</small>
+    </div>
+
+</div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="dashboard-content">
+
+            <!-- PAGE HEADER -->
+            <section class="control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+                        <span></span>
+                        CONTENT MANAGEMENT
+                        <b> / 03</b>
+                    </div>
+
+                    <h1>PROJECT<br><span>DIRECTORY.</span></h1>
+
+                    <p>
+                        Showcase innovation, research and technical
+                        achievements from the VISTAS ACM community.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <button class="primary-button" id="add-project-btn">
+                            + ADD NEW PROJECT
+                        </button>
+
+                        <a href="../projects.html" target="_blank" class="hero-secondary-link">
+                            View website ↗
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-art">
+                    <div class="hero-orbit"></div>
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">P<span>R</span></div>
+
+                    <div class="hero-art-caption">
+                        BUILD<br>INNOVATE<br>CREATE
+                    </div>
+
+                    <div class="hero-art-index">03 / 06</div>
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">PROJECT ANALYTICS</div>
+                        <h2>OVERVIEW</h2>
+                    </div>
+
+                    <div class="section-note">
+                        <span class="live-indicator"></span>
+                        LIVE DATA
+                    </div>
+
+                </div>
+
+                <div class="stats-grid control-stats">
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            TOTAL PROJECTS
+
+                            <span class="stat-icon">⌘</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="total-projects">0</h2>
+                        </div>
+
+                        <p>All registered projects</p>
+                        <div class="stat-card-accent accent-blue"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            PUBLISHED
+
+                            <span class="stat-icon">✓</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="published-projects">0</h2>
+                        </div>
+
+                        <p>Visible on the website</p>
+                        <div class="stat-card-accent accent-green"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            DRAFTS
+
+                            <span class="stat-icon">◷</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="draft-projects">0</h2>
+                        </div>
+
+                        <p>Awaiting publication</p>
+                        <div class="stat-card-accent accent-violet"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            CATEGORIES
+
+                            <span class="stat-icon">▦</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="project-categories">0</h2>
+                        </div>
+
+                        <p>Unique project categories</p>
+                        <div class="stat-card-accent accent-cyan"></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROJECT DIRECTORY -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">DATABASE MANAGEMENT</div>
+                        <h2>ALL PROJECTS</h2>
+                    </div>
+
+                    <div class="section-note">
+                        PROJECT DATABASE
+                    </div>
+
+                </div>
+
+
+                <div class="events-toolbar">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+
+                        <input
+                            type="search"
+                            id="project-search"
+                            placeholder="Search projects..."
+                        >
+                    </div>
+
+                    <select id="project-status-filter">
+                        <option value="all">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+                    </select>
+
+                    <select id="project-category-filter">
+                        <option value="all">All Categories</option>
+                    </select>
+
+                </div>
+
+
+                <div class="events-table-container">
+
+                    <table class="events-table">
+
+                        <thead>
+                            <tr>
+                                <th>PROJECT</th>
+                                <th>CATEGORY</th>
+                                <th>STATUS</th>
+                                <th>WEBSITE</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="projects-table-body">
+
+                            <tr>
+                                <td colspan="5" class="table-message">
+                                    Loading projects...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="event-message" id="project-message"></div>
+
+            </section>
+
+
+            <footer class="control-footer">
+                <span>VISTAS ACM STUDENT CHAPTER</span>
+                <span>CONTROL CENTER <b>•</b> PROJECT MANAGEMENT</span>
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- PROJECT MODAL -->
+<div class="event-modal" id="project-modal">
+
+    <div class="event-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <div class="section-eyebrow">PROJECT MANAGEMENT</div>
+                <h2 id="project-modal-title">ADD PROJECT</h2>
+            </div>
+
+            <button class="modal-close" id="close-project-modal">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="project-form">
+
+            <input type="hidden" id="project-id">
+
+
+            <label for="project-title">PROJECT TITLE</label>
+
+            <input
+                type="text"
+                id="project-title"
+                placeholder="Enter project title"
+                required
+            >
+
+
+            <label for="project-description">DESCRIPTION</label>
+
+            <textarea
+                id="project-description"
+                placeholder="Describe the project..."
+                required
+            ></textarea>
+
+
+            <div class="form-row">
+
+                <div>
+                    <label for="project-category">CATEGORY</label>
+
+                    <input
+                        type="text"
+                        id="project-category"
+                        placeholder="AI / Web Development / IoT"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="project-status">STATUS</label>
+
+                    <select id="project-status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <label>PROJECT IMAGE</label>
+
+            <div class="image-upload-area">
+
+                <label class="upload-box" for="project-image">
+
+                    <span>↑</span>
+
+                    <strong>Upload project image</strong>
+
+                    <span>JPG, PNG or WEBP · Maximum 5MB</span>
+
+                </label>
+
+                <input
+                    type="file"
+                    id="project-image"
+                    accept="image/png,image/jpeg,image/webp"
+                    hidden
+                >
+
+                <div class="image-preview" id="project-image-preview">
+
+                    <img id="project-preview-image" src="" alt="Project preview">
+
+                    <button type="button" id="remove-project-image">
+                        REMOVE IMAGE
+                    </button>
+
+                </div>
+
+                <div id="project-upload-status"></div>
+
+            </div>
+
+
+            <label for="project-url">PROJECT URL</label>
+
+            <input
+                type="url"
+                id="project-url"
+                placeholder="https://example.com"
+            >
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancel-project"
+                >
+                    CANCEL
+                </button>
+
+                <button type="submit" class="primary-button" id="save-project">
+                    SAVE PROJECT
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script type="module" src="../assets/projects.js"></script>
+
+<script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("admin-sidebar");
+
+    menuToggle?.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-open");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (
+            window.innerWidth <= 750 &&
+            sidebar.classList.contains("sidebar-open") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("sidebar-open");
+        }
+    });
+
+    const dateElement = document.getElementById("current-date");
+
+    if (dateElement) {
+        dateElement.textContent = new Intl.DateTimeFormat("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }).format(new Date());
+    }
+</script>
+
+</body>
+</html>

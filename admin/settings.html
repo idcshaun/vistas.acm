@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | VISTAS ACM Control Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/admin.css">
+
+    <style>
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .settings-navigation {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel);
+            height: fit-content;
+        }
+
+        .settings-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--muted);
+            font-size: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .settings-nav-item:hover,
+        .settings-nav-item.active {
+            border-color: rgba(35,139,255,.2);
+            background: rgba(35,139,255,.1);
+            color: white;
+        }
+
+        .settings-nav-item span {
+            color: var(--blue-bright);
+            font-size: 15px;
+        }
+
+        .settings-content {
+            min-width: 0;
+        }
+
+        .settings-panel {
+            display: none;
+            padding: 23px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: linear-gradient(145deg,#101a2e,#0b1425);
+        }
+
+        .settings-panel.active {
+            display: block;
+        }
+
+        .settings-panel-heading {
+            padding-bottom: 17px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .settings-panel-heading h2 {
+            margin: 6px 0;
+            font-family: var(--display-font);
+            font-size: 27px;
+            text-transform: uppercase;
+        }
+
+        .settings-panel-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .settings-form label {
+            margin-top: 9px;
+            color: var(--muted);
+            font-family: var(--mono-font);
+            font-size: 9px;
+            letter-spacing: .7px;
+        }
+
+        .settings-form input,
+        .settings-form select {
+            width: 100%;
+            min-height: 42px;
+            padding: 11px 12px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            outline: none;
+            background: #080f1e;
+            color: white;
+            font-family: var(--body-font);
+            font-size: 11px;
+        }
+
+        .settings-form input:focus,
+        .settings-form select:focus {
+            border-color: var(--blue);
+        }
+
+        .settings-form input:disabled {
+            color: var(--muted);
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        .settings-form button {
+            align-self: flex-start;
+            margin-top: 17px;
+        }
+
+        .settings-info-card {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-top: 18px;
+            padding: 15px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255,255,255,.02);
+        }
+
+        .settings-info-icon {
+            display: grid;
+            width: 37px;
+            height: 37px;
+            flex: 0 0 37px;
+            place-items: center;
+            border-radius: 9px;
+            background: rgba(35,139,255,.1);
+            color: var(--blue-bright);
+        }
+
+        .settings-info-card strong {
+            color: #e9f1ff;
+            font-size: 10px;
+        }
+
+        .settings-info-card p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        .settings-status {
+            margin-top: 12px;
+            color: var(--success);
+            font-size: 10px;
+        }
+
+        .system-detail-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .system-detail {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .system-detail:last-child {
+            border-bottom: 0;
+        }
+
+        .system-detail span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .system-detail strong {
+            color: #e8f0ff;
+            font-family: var(--mono-font);
+            font-size: 9px;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .danger-zone {
+            margin-top: 25px;
+            padding: 18px;
+            border: 1px solid rgba(255,119,119,.2);
+            border-radius: 8px;
+            background: rgba(255,119,119,.035);
+        }
+
+        .danger-zone h3 {
+            margin: 0;
+            color: var(--danger);
+            font-family: var(--display-font);
+            font-size: 22px;
+            text-transform: uppercase;
+        }
+
+        .danger-zone p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .danger-button {
+            min-height: 38px;
+            padding: 0 14px;
+            border: 1px solid rgba(255,119,119,.3);
+            border-radius: 6px;
+            background: rgba(255,119,119,.08);
+            color: var(--danger);
+            font-family: var(--mono-font);
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .danger-button:hover {
+            background: rgba(255,119,119,.15);
+        }
+
+        @media(max-width:850px) {
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-navigation {
+                display: grid;
+                grid-template-columns: repeat(2,minmax(0,1fr));
+            }
+        }
+
+        @media(max-width:560px) {
+            .settings-navigation {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-panel {
+                padding: 17px;
+            }
+
+            .system-detail {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .system-detail strong {
+                text-align: left;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+
+        <a href="dashboard.html" class="sidebar-brand">
+
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+
+            <div class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </div>
+
+        </a>
+
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <span>◈</span>
+                Overview
+            </a>
+
+            <a href="events.html" class="nav-item">
+                <span>▣</span>
+                Events
+            </a>
+
+            <a href="projects.html" class="nav-item">
+                <span>⌘</span>
+                Projects
+            </a>
+
+            <a href="team.html" class="nav-item">
+                <span>♙</span>
+                Team Members
+            </a>
+
+            <a href="announcements.html" class="nav-item">
+                <span>◉</span>
+                Announcements
+            </a>
+
+            <a href="gallery.html" class="nav-item">
+                <span>▧</span>
+                Gallery
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-label sidebar-label-spaced">SYSTEM</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="settings.html" class="nav-item active">
+                <span>⚙</span>
+                Settings
+                <i class="nav-active-indicator"></i>
+            </a>
+
+            <a href="../index.html" target="_blank" class="nav-item">
+                <span>↗</span>
+                View Website
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+                <div class="admin-avatar" id="admin-avatar">AC</div>
+
+                <div class="admin-profile-info">
+                    <strong id="admin-name">Administrator</strong>
+                    <small>ADMINISTRATOR</small>
+                </div>
+
+                <button class="icon-button sidebar-logout" id="logout-btn" title="Logout">
+                    ↗
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                SYSTEM OPERATIONAL
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button class="icon-button menu-toggle" id="menu-toggle">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    CONTROL CENTER
+                    <span>/</span>
+                    <strong>SETTINGS</strong>
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+                    <span class="live-indicator"></span>
+                    ALL SYSTEMS NORMAL
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date"></div>
+
+                <div class="topbar-user">
+                    <div class="topbar-user-avatar">AC</div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="dashboard-content">
+
+
+            <!-- HERO -->
+            <section class="control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+                        <span></span>
+                        SYSTEM CONFIGURATION
+                        <b>/ 07</b>
+                    </div>
+
+                    <h1>YOUR SPACE.<br><span>YOUR CONTROL.</span></h1>
+
+                    <p>
+                        Manage your administrator account, security
+                        and system information from one central location.
+                    </p>
+
+                </div>
+
+
+                <div class="hero-art">
+
+                    <div class="hero-orbit"></div>
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">S<span>Y</span></div>
+
+                    <div class="hero-art-caption">
+                        CONFIGURE<br>SECURE<br>MANAGE
+                    </div>
+
+                    <div class="hero-art-index">07 / 07</div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SETTINGS -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">CONTROL PANEL</div>
+                        <h2>SETTINGS & PREFERENCES</h2>
+                    </div>
+
+                    <div class="section-note">
+                        ACCOUNT MANAGEMENT
+                    </div>
+
+                </div>
+
+
+                <div class="settings-layout">
+
+
+                    <!-- SETTINGS NAVIGATION -->
+                    <aside class="settings-navigation">
+
+                        <button class="settings-nav-item active" data-tab="profile">
+                            <span>♙</span>
+                            Administrator Profile
+                        </button>
+
+                        <button class="settings-nav-item" data-tab="security">
+                            <span>◇</span>
+                            Account Security
+                        </button>
+
+                        <button class="settings-nav-item" data-tab="system">
+                            <span>▦</span>
+                            System Information
+                        </button>
+
+                        <button class="settings-nav-item" data-tab="about">
+                            <span>ⓘ</span>
+                            About Control Center
+                        </button>
+
+                    </aside>
+
+
+                    <!-- SETTINGS CONTENT -->
+                    <div class="settings-content">
+
+
+                        <!-- PROFILE -->
+                        <section class="settings-panel active" id="profile-panel">
+
+                            <div class="settings-panel-heading">
+
+                                <div class="section-eyebrow">
+                                    ACCOUNT INFORMATION
+                                </div>
+
+                                <h2>ADMINISTRATOR PROFILE</h2>
+
+                                <p>
+                                    View your administrator information
+                                    and update your display name.
+                                </p>
+
+                            </div>
+
+
+                            <form id="profile-form" class="settings-form">
+
+                                <label for="profile-name">
+                                    FULL NAME
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="profile-name"
+                                    placeholder="Administrator name"
+                                    required
+                                >
+
+
+                                <label for="profile-email">
+                                    EMAIL ADDRESS
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="profile-email"
+                                    disabled
+                                >
+
+
+                                <label for="profile-role">
+                                    ACCOUNT ROLE
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="profile-role"
+                                    disabled
+                                >
+
+
+                                <button type="submit" class="primary-button">
+                                    SAVE PROFILE
+                                </button>
+
+                                <div class="settings-status" id="profile-message"></div>
+
+                            </form>
+
+                        </section>
+
+
+                        <!-- SECURITY -->
+                        <section class="settings-panel" id="security-panel">
+
+                            <div class="settings-panel-heading">
+
+                                <div class="section-eyebrow">
+                                    ACCOUNT PROTECTION
+                                </div>
+
+                                <h2>SECURITY SETTINGS</h2>
+
+                                <p>
+                                    Change your administrator password
+                                    to keep your account protected.
+                                </p>
+
+                            </div>
+
+
+                            <form id="password-form" class="settings-form">
+
+                                <label for="new-password">
+                                    NEW PASSWORD
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="new-password"
+                                    placeholder="Enter new password"
+                                    minlength="8"
+                                    required
+                                >
+
+
+                                <label for="confirm-password">
+                                    CONFIRM NEW PASSWORD
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="confirm-password"
+                                    placeholder="Confirm new password"
+                                    minlength="8"
+                                    required
+                                >
+
+
+                                <button type="submit" class="primary-button">
+                                    UPDATE PASSWORD
+                                </button>
+
+                                <div class="settings-status" id="password-message"></div>
+
+                            </form>
+
+
+                            <div class="settings-info-card">
+
+                                <div class="settings-info-icon">◇</div>
+
+                                <div>
+                                    <strong>Security reminder</strong>
+
+                                    <p>
+                                        Never share your administrator
+                                        credentials or Supabase secret keys.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- SYSTEM -->
+                        <section class="settings-panel" id="system-panel">
+
+                            <div class="settings-panel-heading">
+
+                                <div class="section-eyebrow">
+                                    PLATFORM STATUS
+                                </div>
+
+                                <h2>SYSTEM INFORMATION</h2>
+
+                                <p>
+                                    Information about your VISTAS ACM
+                                    Control Center environment.
+                                </p>
+
+                            </div>
+
+
+                            <div class="system-detail-list">
+
+                                <div class="system-detail">
+                                    <span>Platform</span>
+                                    <strong>VISTAS ACM</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Admin Interface</span>
+                                    <strong>CONTROL CENTER V2</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Database</span>
+                                    <strong>SUPABASE</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Storage</span>
+                                    <strong>VISTAS-MEDIA</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Environment</span>
+                                    <strong id="system-environment">DETECTING...</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Browser</span>
+                                    <strong id="system-browser">DETECTING...</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Current Date</span>
+                                    <strong id="system-date">-</strong>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- ABOUT -->
+                        <section class="settings-panel" id="about-panel">
+
+                            <div class="settings-panel-heading">
+
+                                <div class="section-eyebrow">
+                                    PLATFORM INFORMATION
+                                </div>
+
+                                <h2>ABOUT CONTROL CENTER</h2>
+
+                                <p>
+                                    The administration platform for
+                                    the VISTAS ACM Student Chapter.
+                                </p>
+
+                            </div>
+
+
+                            <div class="settings-info-card">
+
+                                <div class="settings-info-icon">V</div>
+
+                                <div>
+                                    <strong>VISTAS ACM Student Chapter</strong>
+
+                                    <p>
+                                        An administrative platform for managing
+                                        chapter events, projects, members,
+                                        announcements and gallery content.
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="system-detail-list">
+
+                                <div class="system-detail">
+                                    <span>Platform Version</span>
+                                    <strong>2.0</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Interface</span>
+                                    <strong>CONTROL CENTER</strong>
+                                </div>
+
+                                <div class="system-detail">
+                                    <span>Organization</span>
+                                    <strong>VISTAS ACM</strong>
+                                </div>
+
+                            </div>
+
+
+                            <div class="danger-zone">
+
+                                <h3>Account Actions</h3>
+
+                                <p>
+                                    Sign out of your administrator session
+                                    when you finish managing the website.
+                                </p>
+
+                                <button class="danger-button" id="settings-logout">
+                                    SIGN OUT
+                                </button>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="control-footer">
+
+                <span>VISTAS ACM STUDENT CHAPTER</span>
+
+                <span>
+                    CONTROL CENTER
+                    <b>•</b>
+                    SYSTEM CONFIGURATION
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script type="module" src="../assets/settings.js"></script>
+
+
+<script>
+
+    // MOBILE SIDEBAR
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("admin-sidebar");
+
+    menuToggle?.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-open");
+    });
+
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            window.innerWidth <= 750 &&
+            sidebar.classList.contains("sidebar-open") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("sidebar-open");
+        }
+
+    });
+
+
+    // DATE
+
+    const dateElement = document.getElementById("current-date");
+
+    const now = new Date();
+
+    if (dateElement) {
+        dateElement.textContent = new Intl.DateTimeFormat("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }).format(now);
+    }
+
+    document.getElementById("system-date").textContent =
+        now.toLocaleDateString("en-IN");
+
+
+    // ENVIRONMENT
+
+    document.getElementById("system-environment").textContent =
+        location.hostname === "localhost" ? "LOCAL DEVELOPMENT" : "HOSTED";
+
+
+    // BROWSER
+
+    const userAgent = navigator.userAgent;
+
+    let browser = "UNKNOWN";
+
+    if (userAgent.includes("Edg/")) browser = "MICROSOFT EDGE";
+    else if (userAgent.includes("Chrome/")) browser = "GOOGLE CHROME";
+    else if (userAgent.includes("Firefox/")) browser = "MOZILLA FIREFOX";
+    else if (userAgent.includes("Safari/")) browser = "SAFARI";
+
+    document.getElementById("system-browser").textContent = browser;
+
+
+    // SETTINGS TABS
+
+    const tabButtons = document.querySelectorAll(".settings-nav-item");
+    const panels = document.querySelectorAll(".settings-panel");
+
+    tabButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const target = button.dataset.tab;
+
+            tabButtons.forEach(item => item.classList.remove("active"));
+            panels.forEach(panel => panel.classList.remove("active"));
+
+            button.classList.add("active");
+
+            document.getElementById(`${target}-panel`)
+                ?.classList.add("active");
+
+        });
+
+    });
+
+
+    // SIGN OUT BUTTON
+
+    document.getElementById("settings-logout")?.addEventListener("click", () => {
+        document.getElementById("logout-btn")?.click();
+    });
+
+</script>
+
+</body>
+</html>

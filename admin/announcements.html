@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Announcements | VISTAS ACM Control Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/admin.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+
+        <a href="dashboard.html" class="sidebar-brand">
+
+            <img src="../assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM">
+
+            <div class="brand-copy">
+                <strong>VISTAS <b>ACM</b></strong>
+                <small>CONTROL CENTER</small>
+            </div>
+
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+                <span>◈</span>
+                Overview
+            </a>
+
+            <a href="events.html" class="nav-item">
+                <span>▣</span>
+                Events
+            </a>
+
+            <a href="projects.html" class="nav-item">
+                <span>⌘</span>
+                Projects
+            </a>
+
+            <a href="team.html" class="nav-item">
+                <span>♙</span>
+                Team Members
+            </a>
+
+            <a href="announcements.html" class="nav-item active">
+                <span>◉</span>
+                Announcements
+                <i class="nav-active-indicator"></i>
+            </a>
+
+            <a href="gallery.html" class="nav-item">
+                <span>▧</span>
+                Gallery
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label sidebar-label-spaced">SYSTEM</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="../index.html" target="_blank" class="nav-item">
+                <span>↗</span>
+                View Website
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-identity">
+
+                <div class="admin-avatar" id="admin-avatar">AC</div>
+
+                <div class="admin-profile-info">
+                    <strong id="admin-name">Administrator</strong>
+                    <small>ADMINISTRATOR</small>
+                </div>
+
+                <button class="icon-button sidebar-logout" id="logout-btn" title="Logout">
+                    ↗
+                </button>
+
+            </div>
+
+            <div class="sidebar-footnote">
+                <span class="live-indicator"></span>
+                SYSTEM OPERATIONAL
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="control-topbar">
+
+            <div class="topbar-left">
+
+                <button class="icon-button menu-toggle" id="menu-toggle">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    CONTROL CENTER
+                    <span>/</span>
+                    <strong>ANNOUNCEMENTS</strong>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="topbar-system">
+                    <span class="live-indicator"></span>
+                    ALL SYSTEMS NORMAL
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <div class="topbar-date" id="current-date"></div>
+
+                <div class="topbar-user">
+                    <div class="topbar-user-avatar">AC</div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="dashboard-content">
+
+            <!-- HERO -->
+            <section class="control-hero">
+
+                <div class="hero-copy">
+
+                    <div class="hero-kicker">
+                        <span></span>
+                        COMMUNICATION MANAGEMENT
+                        <b>/ 05</b>
+                    </div>
+
+                    <h1>THE LATEST<br><span>FROM ACM.</span></h1>
+
+                    <p>
+                        Publish important updates, opportunities,
+                        registrations and announcements for the
+                        VISTAS ACM community.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <button class="primary-button" id="add-announcement-btn">
+                            + CREATE ANNOUNCEMENT
+                        </button>
+
+                        <a href="../index.html" target="_blank" class="hero-secondary-link">
+                            View website ↗
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-art">
+
+                    <div class="hero-orbit"></div>
+                    <div class="hero-orbit orbit-two"></div>
+
+                    <div class="hero-monogram">A<span>N</span></div>
+
+                    <div class="hero-art-caption">
+                        INFORM<br>CONNECT<br>INSPIRE
+                    </div>
+
+                    <div class="hero-art-index">05 / 06</div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">COMMUNICATION ANALYTICS</div>
+                        <h2>ANNOUNCEMENT OVERVIEW</h2>
+                    </div>
+
+                    <div class="section-note">
+                        <span class="live-indicator"></span>
+                        LIVE DATA
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid control-stats">
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            TOTAL ANNOUNCEMENTS
+                            <span class="stat-icon">◉</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="total-announcements">0</h2>
+                        </div>
+
+                        <p>All registered announcements</p>
+
+                        <div class="stat-card-accent accent-blue"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            PUBLISHED
+                            <span class="stat-icon">✓</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="published-announcements">0</h2>
+                        </div>
+
+                        <p>Visible on the website</p>
+
+                        <div class="stat-card-accent accent-green"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            DRAFTS
+                            <span class="stat-icon">◷</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="draft-announcements">0</h2>
+                        </div>
+
+                        <p>Awaiting publication</p>
+
+                        <div class="stat-card-accent accent-violet"></div>
+
+                    </article>
+
+
+                    <article class="control-stat-card">
+
+                        <div class="control-stat-top">
+                            ARCHIVED
+                            <span class="stat-icon">▤</span>
+                        </div>
+
+                        <div class="stat-number-row">
+                            <h2 id="archived-announcements">0</h2>
+                        </div>
+
+                        <p>Past announcements</p>
+
+                        <div class="stat-card-accent accent-cyan"></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- ANNOUNCEMENT DIRECTORY -->
+            <section class="dashboard-section">
+
+                <div class="control-section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">CONTENT DATABASE</div>
+                        <h2>ALL ANNOUNCEMENTS</h2>
+                    </div>
+
+                    <div class="section-note">
+                        PUBLIC COMMUNICATIONS
+                    </div>
+
+                </div>
+
+
+                <!-- FILTERS -->
+                <div class="events-toolbar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="search"
+                            id="announcement-search"
+                            placeholder="Search announcements..."
+                        >
+
+                    </div>
+
+
+                    <select id="announcement-status-filter">
+
+                        <option value="all">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TABLE -->
+                <div class="events-table-container">
+
+                    <table class="events-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>ANNOUNCEMENT</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="announcements-table-body">
+
+                            <tr>
+                                <td colspan="4" class="table-message">
+                                    Loading announcements...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="event-message" id="announcement-message"></div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="control-footer">
+
+                <span>VISTAS ACM STUDENT CHAPTER</span>
+
+                <span>
+                    CONTROL CENTER
+                    <b>•</b>
+                    ANNOUNCEMENT MANAGEMENT
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="event-modal" id="announcement-modal">
+
+    <div class="event-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="section-eyebrow">
+                    COMMUNICATION MANAGEMENT
+                </div>
+
+                <h2 id="announcement-modal-title">
+                    NEW ANNOUNCEMENT
+                </h2>
+
+            </div>
+
+            <button class="modal-close" id="close-announcement-modal">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="announcement-form">
+
+            <input type="hidden" id="announcement-id">
+
+
+            <!-- TITLE -->
+            <label for="announcement-title">
+                ANNOUNCEMENT TITLE
+            </label>
+
+            <input
+                type="text"
+                id="announcement-title"
+                placeholder="Enter announcement title"
+                required
+            >
+
+
+            <!-- CONTENT -->
+            <label for="announcement-content">
+                ANNOUNCEMENT CONTENT
+            </label>
+
+            <textarea
+                id="announcement-content"
+                placeholder="Write your announcement..."
+                required
+            ></textarea>
+
+
+            <!-- DATE -->
+            <label for="announcement-date">
+                ANNOUNCEMENT DATE
+            </label>
+
+            <input
+                type="date"
+                id="announcement-date"
+                required
+            >
+
+
+            <!-- STATUS -->
+            <label for="announcement-status">
+                PUBLICATION STATUS
+            </label>
+
+            <select id="announcement-status">
+
+                <option value="draft">Save as Draft</option>
+                <option value="published">Publish Now</option>
+                <option value="archived">Archive</option>
+
+            </select>
+
+
+            <!-- ACTIONS -->
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancel-announcement"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="save-announcement"
+                >
+                    SAVE ANNOUNCEMENT
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script type="module" src="../assets/announcements.js"></script>
+
+<script>
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("admin-sidebar");
+
+    menuToggle?.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-open");
+    });
+
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            window.innerWidth <= 750 &&
+            sidebar.classList.contains("sidebar-open") &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("sidebar-open");
+        }
+
+    });
+
+
+    const dateElement = document.getElementById("current-date");
+
+    if (dateElement) {
+
+        dateElement.textContent = new Intl.DateTimeFormat("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }).format(new Date());
+
+    }
+
+
+    // Default announcement date to today
+    const announcementDate = document.getElementById("announcement-date");
+
+    if (announcementDate) {
+        announcementDate.value = new Date().toLocaleDateString("en-CA");
+    }
+
+</script>
+
+</body>
+</html>

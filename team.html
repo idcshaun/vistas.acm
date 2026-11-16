@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020817">
+
+  <title>Team | VISTAS ACM</title>
+
+  <meta
+    name="description"
+    content="Meet the student leaders, developers and creative minds behind the VISTAS ACM Student Chapter."
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="icon" href="assets/vistas-acm-blue-logo.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+
+<body data-page="team">
+
+  <!-- PAGE TRANSITION -->
+  <div id="wipe" aria-hidden="true">
+    <img src="assets/vistas-acm-blue-logo.jpg" alt="">
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cur"></div>
+
+  <!-- =====================================
+       NAVIGATION
+  ====================================== -->
+
+  <nav class="nav" id="nv" aria-label="Main navigation">
+
+    <a
+      class="brand"
+      data-p="home"
+      href="index.html"
+      aria-label="VISTAS ACM home"
+    >
+
+      <img
+        src="assets/vistas-acm-blue-logo.jpg"
+        alt="VISTAS ACM Logo"
+      >
+
+      <span>
+        <b>VISTAS ACM</b>
+        <small>STUDENT CHAPTER</small>
+      </span>
+
+    </a>
+
+    <button
+      class="mt"
+      id="mt"
+      type="button"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+    <div class="menu">
+
+      <a class="l" data-p="about" href="about.html">About</a>
+      <a class="l" data-p="domains" href="domains.html">Domains</a>
+      <a class="l" data-p="events" href="events.html">Events</a>
+      <a class="l" data-p="projects" href="projects.html">Projects</a>
+      <a class="l" data-p="team" href="team.html">Team</a>
+      <a class="l" data-p="gallery" href="gallery.html">Gallery</a>
+      <a class="l" data-p="contact" href="contact.html">Contact</a>
+
+    </div>
+
+    <!-- CHAPTER INSTAGRAM -->
+
+    <a
+      class="instagram-link"
+      href="https://www.instagram.com/vistas_acm/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Visit VISTAS ACM on Instagram"
+    >
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+
+        <circle
+          cx="17.5"
+          cy="6.8"
+          r="1.1"
+          fill="currentColor"
+        />
+
+      </svg>
+
+    </a>
+
+    <a class="cta" data-p="contact" href="contact.html">
+      Join the chapter ↗
+    </a>
+
+  </nav>
+
+
+  <!-- =====================================
+       MAIN CONTENT
+  ====================================== -->
+
+  <main id="top">
+
+    <!-- HERO -->
+
+    <header class="ph" style="border:0">
+
+      <div class="wrap">
+
+        <span class="mono">
+          VISTAS ACM / TEAM
+        </span>
+
+        <h1>
+          <span class="w" style="--i:0">People make</span>
+          <span class="w" style="--i:1">the chapter.</span>
+        </h1>
+
+        <p class="lead">
+          One team, fifteen members. Discover the people,
+          ideas and passion building our chapter.
+        </p>
+
+      </div>
+
+      <div class="num" aria-hidden="true">
+        05
+      </div>
+
+    </header>
+
+
+    <!-- =====================================
+         TEAM CAROUSEL
+    ====================================== -->
+
+    <section
+      id="team"
+      class="tt"
+      style="padding:0"
+      aria-label="Meet the VISTAS ACM team"
+    >
+
+      <div class="ttrack" id="tk">
+
+        <div
+          class="tstage"
+          role="group"
+          aria-label="Team member profiles. Scroll or swipe to change members."
+          aria-live="polite"
+        >
+
+          <!-- TEAM LABEL -->
+
+          <div class="tlabel">
+            VISTAS ACM · TEAM
+          </div>
+
+
+          <!-- BACKGROUND TYPOGRAPHY -->
+
+          <div
+            id="wds"
+            aria-hidden="true"
+          ></div>
+
+
+          <!-- MEMBER PORTRAITS -->
+
+          <div
+            id="sls"
+            aria-label="Team member portraits"
+          ></div>
+
+
+          <!-- =================================
+               MEMBER INFORMATION
+          ================================== -->
+
+          <div class="info">
+
+            <span class="mono member-number">
+              MEMBER <span id="in">01</span>
+            </span>
+
+            <h3 id="nm">
+              Loading...
+            </h3>
+
+            <p id="rl">
+              Team Member
+            </p>
+
+            <span class="t" id="tm">
+              VISTAS ACM
+            </span>
+
+
+            <!-- MEMBER BIO -->
+
+            <div
+              class="member-bio"
+              id="member-bio"
+              aria-label="Member biography"
+              hidden
+            ></div>
+
+
+            <!-- MEMBER SOCIAL REDIRECT BUTTONS -->
+
+            <div
+              class="member-socials"
+              id="member-socials"
+              aria-label="Member social profiles"
+              hidden
+            >
+
+              <!--
+                team-extras.js dynamically generates:
+                LINKEDIN ↗
+                GITHUB ↗
+                INSTAGRAM ↗
+              -->
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================
+               MEMBER COUNTER
+          ================================== -->
+
+          <div class="cnt">
+
+            <b id="ct">01</b>
+
+            <span id="total-members">
+              / 00
+            </span>
+
+            <div class="bar">
+              <i></i>
+            </div>
+
+          </div>
+
+
+          <!-- SCROLL INSTRUCTION -->
+
+          <div class="hint" id="hn">
+
+            SCROLL TO MEET THE TEAM
+
+            <i></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+
+  <footer>
+
+    <div class="wrap">
+
+      <div class="ft">
+
+        <!-- BRAND -->
+
+        <a
+          class="brand"
+          data-p="home"
+          href="index.html"
+        >
+
+          <img
+            src="assets/vistas-acm-blue-logo.jpg"
+            alt="VISTAS ACM Logo"
+          >
+
+          <span>
+            <b>VISTAS ACM</b>
+            <small>STUDENT CHAPTER</small>
+          </span>
+
+        </a>
+
+
+        <!-- FOOTER NAVIGATION -->
+
+        <nav aria-label="Footer navigation">
+
+          <a data-p="about" href="about.html">About</a>
+          <a data-p="domains" href="domains.html">Domains</a>
+          <a data-p="events" href="events.html">Events</a>
+          <a data-p="projects" href="projects.html">Projects</a>
+          <a data-p="team" href="team.html">Team</a>
+          <a data-p="gallery" href="gallery.html">Gallery</a>
+          <a data-p="contact" href="contact.html">Contact</a>
+
+        </nav>
+
+
+        <!-- CHAPTER INSTAGRAM -->
+
+        <a
+          class="footer-instagram"
+          href="https://www.instagram.com/vistas_acm/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Follow VISTAS ACM on Instagram"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            width="18"
+            height="18"
+          >
+
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="18"
+              rx="5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+
+            <circle
+              cx="12"
+              cy="12"
+              r="4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+
+            <circle
+              cx="17.5"
+              cy="6.8"
+              r="1.1"
+              fill="currentColor"
+            />
+
+          </svg>
+
+          <span>Instagram ↗</span>
+
+        </a>
+
+
+        <!-- COPYRIGHT -->
+
+        <span>
+          © <span data-year></span> VISTAS ACM ·
+          Build / Lead / Create / Connect
+        </span>
+
+      </div>
+
+
+      <!-- FOOTER BRAND TYPOGRAPHY -->
+
+      <div class="big-ft" aria-hidden="true">
+        VISTAS
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =====================================
+       JAVASCRIPT
+  ====================================== -->
+
+  <!-- Main website navigation and carousel -->
+  <script src="assets/site.js"></script>
+
+  <!-- Dynamic member bio and social redirect buttons -->
+  <script
+    type="module"
+    src="assets/team-extras.js"
+  ></script>
+
+  <script src="assets/binary-hover.js"></script>
+</body>
+
+</html>
