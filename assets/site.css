@@ -17,64 +17,28 @@ h2{font-size:clamp(46px,8vw,104px)}h2 span,h1 span{color:var(--lime)}
    FIRST-VISIT INTRO LOADER
 ========================================= */
 #intro-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 48%, rgba(8, 42, 104, .18), transparent 58%),
-    #000;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity .65s ease, visibility .65s ease;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow: hidden;
+
+    /* Pure black background */
+    background: #000000;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .65s ease, visibility .65s ease;
 }
-#intro-loader.is-leaving {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
+
 #intro-loader video {
-  display: block;
-  width: min( min(82vw, 736px), 900px );
-  max-height: 42vh;
-  object-fit: contain;
-  background: #000;
-  filter: drop-shadow(0 0 26px rgba(35, 65, 255, .22));
-}
-#intro-loader .intro-brand {
-  position: absolute;
-  left: 50%;
-  bottom: max(9vh, 42px);
-  transform: translateX(-50%);
-  color: rgba(226, 239, 255, .78);
-  font: 500 10px/1 var(--mono);
-  letter-spacing: .34em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-#intro-loader .intro-brand::before {
-  content: "";
-  display: block;
-  width: 34px;
-  height: 1px;
-  margin: 0 auto 14px;
-  background: linear-gradient(90deg, transparent, var(--blue2), transparent);
-}
-@media (max-width: 600px) {
-  #intro-loader video {
-    width: min(94vw, 736px);
-    max-height: 34vh;
-  }
-  #intro-loader .intro-brand {
-    bottom: 12vh;
-    font-size: 9px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #intro-loader { display: none !important; }
+    display: block;
+    width: min(82vw, 900px);
+    max-height: 42vh;
+    object-fit: contain;
+    background: #000000;
 }
 
 #pg{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue2),var(--lime));transform-origin:0;transform:scaleX(0);z-index:60}
