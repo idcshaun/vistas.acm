@@ -1,977 +1,197 @@
 // =============================================
-// VISTAS ACM — TEAM MANAGEMENT
+// VISTAS ACM — PUBLIC TEAM CAROUSEL
 // =============================================
-
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-let supabase;
-let members = [];
-let existingImageUrl = null;
-
 const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
 
-const el = {
-    adminName: $("admin-name"),
-    logout: $("logout-btn"),
-    menuToggle: $("menu-toggle"),
+const HUES = [210, 222, 200, 235, 190, 215, 228, 205, 218, 195];
+const FALLBACK_IMG = "assets/vistas-acm-blue-logo.jpg";
 
-    addButton: $("add-member-btn"),
+const track = $("tk");
+const stage = track?.querySelector(".tstage");
+const section = $("team");
+const wds = $("wds");
+const sls = $("sls");
+const info = $("info");
+const bar = document.querySelector(".cnt .bar");
 
-    total: $("total-members"),
-    published: $("published-members"),
-    drafts: $("draft-members"),
-    domains: $("team-domains"),
+let members = [];
+let active = -1;
+let swapTimer = null;
+let ticking = false;
 
-    search: $("member-search"),
-    statusFilter: $("member-status-filter"),
-    domainFilter: $("member-domain-filter"),
+// ---------- Load ----------
+async function load() {
+  try {
+    const res = await fetch("/api/config");
+    if (!res.ok) throw new Error("Config unavailable");
+    const cfg = await res.json();
 
-    table: $("team-table-body"),
-    message: $("team-message"),
-
-    modal: $("member-modal"),
-    modalTitle: $("member-modal-title"),
-    closeModal: $("close-member-modal"),
-
-    form: $("member-form"),
-    id: $("member-id"),
-
-    name: $("member-name"),
-    designation: $("member-designation"),
-    domain: $("member-domain"),
-    status: $("member-status"),
-    bio: $("member-bio"),
-
-    image: $("member-image"),
-    imagePreview: $("member-image-preview"),
-    previewImage: $("member-preview-image"),
-    removeImage: $("remove-member-image"),
-    uploadStatus: $("member-upload-status"),
-
-    linkedin: $("member-linkedin"),
-    instagram: $("member-instagram"),
-    github: $("member-github"),
-    order: $("member-order"),
-
-    cancel: $("cancel-member"),
-    save: $("save-member")
-};
-
-
-// =============================================
-// INITIALIZATION
-// =============================================
-
-document.addEventListener("DOMContentLoaded", initialize);
-
-async function initialize() {
-    try {
-        const response = await fetch("/api/config");
-
-        if (!response.ok) {
-            throw new Error("Unable to load Supabase configuration.");
-        }
-
-        const config = await response.json();
-
-        if (!config.supabaseUrl || !config.supabaseKey) {
-            throw new Error("Supabase configuration is incomplete.");
-        }
-
-        supabase = createClient(
-            config.supabaseUrl,
-            config.supabaseKey
-        );
-
-        const authorized = await verifyAdmin();
-
-        if (!authorized) return;
-
-        setupEventListeners();
-
-        await loadMembers();
-
-    } catch (error) {
-        console.error("Team initialization error:", error);
-
-        showMessage(
-            error.message || "Unable to initialize team management.",
-            "error"
-        );
-    }
-}
-
-
-// =============================================
-// AUTHENTICATION
-// =============================================
-
-async function verifyAdmin() {
-    const {
-        data: { user },
-        error
-    } = await supabase.auth.getUser();
-
-    if (error || !user) {
-        window.location.href = "/admin/login.html";
-        return false;
-    }
-
-    const {
-        data: profile,
-        error: profileError
-    } = await supabase
-        .from("profiles")
-        .select("full_name, role")
-        .eq("id", user.id)
-        .single();
-
-    if (
-        profileError ||
-        !profile ||
-        !["admin", "editor"].includes(profile.role)
-    ) {
-        await supabase.auth.signOut();
-
-        window.location.href = "/admin/login.html";
-
-        return false;
-    }
-
-    if (el.adminName) {
-        el.adminName.textContent =
-            profile.full_name || user.email;
-    }
-
-    return true;
-}
-
-
-// =============================================
-// EVENT LISTENERS
-// =============================================
-
-function setupEventListeners() {
-    el.addButton?.addEventListener("click", openCreateModal);
-
-    el.closeModal?.addEventListener("click", closeModal);
-
-    el.cancel?.addEventListener("click", closeModal);
-
-    el.form?.addEventListener("submit", saveMember);
-
-    el.search?.addEventListener("input", renderMembers);
-
-    el.statusFilter?.addEventListener("change", renderMembers);
-
-    el.domainFilter?.addEventListener("change", renderMembers);
-
-    el.image?.addEventListener("change", previewImage);
-
-    el.removeImage?.addEventListener("click", removeImage);
-
-    el.logout?.addEventListener("click", logout);
-
-    el.menuToggle?.addEventListener("click", () => {
-        document.querySelector(".admin-sidebar")
-            ?.classList.toggle("sidebar-open");
-    });
-
-    el.modal?.addEventListener("click", (event) => {
-        if (event.target === el.modal) {
-            closeModal();
-        }
-    });
-
-    document.addEventListener("keydown", (event) => {
-        if (
-            event.key === "Escape" &&
-            el.modal?.classList.contains("active")
-        ) {
-            closeModal();
-        }
-    });
-}
-
-
-// =============================================
-// LOAD TEAM MEMBERS
-// =============================================
-
-async function loadMembers() {
-    showMessage("Loading team members...", "info");
+    const supabase = createClient(cfg.supabaseUrl, cfg.supabaseKey);
 
     const { data, error } = await supabase
-        .from("team_members")
-        .select("*")
-        .order("display_order", { ascending: true });
+      .from("team_members")
+      .select("id, name, designation, domain, bio, image_url, linkedin_url, instagram_url, github_url, display_order")
+      .eq("status", "published")
+      .order("display_order", { ascending: true });
 
-    if (error) {
-        console.error("Load members error:", error);
-
-        showMessage(
-            error.message || "Unable to load team members.",
-            "error"
-        );
-
-        return;
-    }
-
+    if (error) throw error;
     members = data || [];
+  } catch (err) {
+    console.error("Team load error:", err);
+    members = [];
+  }
 
-    updateStatistics();
-    populateDomainFilter();
-    renderMembers();
+  if (!members.length) {
+    $("nm").textContent = "Team coming soon";
+    $("rl").textContent = "Check back shortly.";
+    $("hn").hidden = true;
+    track.style.setProperty("--n", 1);
+    return;
+  }
 
-    showMessage("", "");
+  build();
+  update();
 }
 
-
-// =============================================
-// STATISTICS
-// =============================================
-
-function updateStatistics() {
-    const published = members.filter(
-        member => member.status === "published"
-    ).length;
-
-    const drafts = members.filter(
-        member => member.status === "draft"
-    ).length;
-
-    const domains = new Set(
-        members
-            .map(member => member.domain)
-            .filter(Boolean)
-    );
-
-    if (el.total) {
-        el.total.textContent = members.length;
-    }
-
-    if (el.published) {
-        el.published.textContent = published;
-    }
-
-    if (el.drafts) {
-        el.drafts.textContent = drafts;
-    }
-
-    if (el.domains) {
-        el.domains.textContent = domains.size;
-    }
-}
-
-
-// =============================================
-// DOMAIN FILTER
-// =============================================
-
-function populateDomainFilter() {
-    if (!el.domainFilter) return;
-
-    const selected = el.domainFilter.value;
-
-    const domains = [
-        ...new Set(
-            members
-                .map(member => member.domain)
-                .filter(Boolean)
-        )
-    ].sort();
-
-    el.domainFilter.innerHTML =
-        `<option value="all">All Domains</option>`;
-
-    domains.forEach(domain => {
-        const option = document.createElement("option");
-
-        option.value = domain;
-        option.textContent = domain;
-
-        el.domainFilter.appendChild(option);
-    });
-
-    if (domains.includes(selected)) {
-        el.domainFilter.value = selected;
-    }
-}
-
-
-// =============================================
-// RENDER TEAM MEMBERS
-// =============================================
-
-function renderMembers() {
-    if (!el.table) return;
-
-    const search =
-        el.search?.value.trim().toLowerCase() || "";
-
-    const status =
-        el.statusFilter?.value || "all";
-
-    const domain =
-        el.domainFilter?.value || "all";
-
-    const filtered = members.filter(member => {
-        const matchesSearch =
-            (member.name || "").toLowerCase().includes(search) ||
-            (member.designation || "").toLowerCase().includes(search) ||
-            (member.domain || "").toLowerCase().includes(search);
-
-        const matchesStatus =
-            status === "all" || member.status === status;
-
-        const matchesDomain =
-            domain === "all" || member.domain === domain;
-
-        return matchesSearch && matchesStatus && matchesDomain;
-    });
-
-    if (!filtered.length) {
-        el.table.innerHTML = `
-            <tr>
-                <td colspan="5" class="table-message">
-                    No team members found.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-    el.table.innerHTML = filtered.map(member => {
-        const name = escapeHTML(
-            member.name || "Unnamed Member"
-        );
-
-        const image = member.image_url
-            ? `
-                <img
-                    src="${escapeHTML(member.image_url)}"
-                    alt="${name}"
-                    class="member-table-image"
-                    loading="lazy"
-                >
-            `
-            : `
-                <div class="member-table-placeholder">
-                    <i data-lucide="user"></i>
-                </div>
-            `;
-
-        return `
-            <tr>
-                <td>
-                    <div class="member-table-info">
-                        ${image}
-
-                        <div>
-                            <strong>${name}</strong>
-                            <small>
-                                ${escapeHTML(
-                                    (member.bio || "").slice(0, 55)
-                                )}
-                            </small>
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    ${escapeHTML(member.designation || "—")}
-                </td>
-
-                <td>
-                    ${escapeHTML(member.domain || "—")}
-                </td>
-
-                <td>
-                    <span class="status-badge status-${escapeHTML(
-                        member.status || "draft"
-                    )}">
-                        ${escapeHTML(member.status || "draft")}
-                    </span>
-                </td>
-
-                <td>
-                    <div class="event-actions">
-                        <button
-                            type="button"
-                            class="icon-button"
-                            data-action="edit"
-                            data-id="${escapeHTML(member.id)}"
-                            title="Edit member"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg"
-     width="15" height="15"
-     viewBox="0 0 24 24"
-     fill="none"
-     stroke="currentColor"
-     stroke-width="2"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <path d="M12 20h9"/>
-    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"/>
-</svg>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="icon-button delete-action"
-                            data-action="delete"
-                            data-id="${escapeHTML(member.id)}"
-                            title="Delete member"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg"
-     width="15" height="15"
-     viewBox="0 0 24 24"
-     fill="none"
-     stroke="currentColor"
-     stroke-width="2"
-     stroke-linecap="round"
-     stroke-linejoin="round">
-    <path d="M3 6h18"/>
-    <path d="M8 6V4h8v2"/>
-    <path d="m19 6-1 14H6L5 6"/>
-    <path d="M10 11v5"/>
-    <path d="M14 11v5"/>
-</svg>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
-    }).join("");
-
-    el.table.querySelectorAll("[data-action]").forEach(button => {
-        button.addEventListener("click", () => {
-            const { action, id } = button.dataset;
-
-            if (action === "edit") {
-                editMember(id);
-            }
-
-            if (action === "delete") {
-                deleteMember(id);
-            }
-        });
-    });
-
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
-}
-
-
-// =============================================
-// CREATE MEMBER
-// =============================================
-
-function openCreateModal() {
-    if (!el.form || !el.modal) return;
-
-    el.form.reset();
-
-    el.id.value = "";
-
-    existingImageUrl = null;
-
-    el.modalTitle.textContent = "ADD TEAM MEMBER";
-
-    resetImagePreview();
-
-    el.modal.classList.add("active");
-}
-
-
-// =============================================
-// EDIT MEMBER
-// =============================================
-
-function editMember(id) {
-    const member = members.find(
-        item => String(item.id) === String(id)
-    );
-
-    if (!member || !el.form || !el.modal) return;
-
-    el.form.reset();
-
-    el.id.value = member.id;
-
-    el.name.value = member.name || "";
-
-    el.designation.value = member.designation || "";
-
-    el.domain.value = member.domain || "";
-
-    el.status.value = member.status || "draft";
-
-    el.bio.value = member.bio || "";
-
-    el.linkedin.value = member.linkedin_url || "";
-
-    el.instagram.value = member.instagram_url || "";
-
-    el.github.value = member.github_url || "";
-
-    el.order.value = member.display_order ?? 0;
-
-    existingImageUrl = member.image_url || null;
-
-    el.modalTitle.textContent = "EDIT TEAM MEMBER";
-
-    if (existingImageUrl) {
-        el.previewImage.src = existingImageUrl;
-
-        el.imagePreview.style.display = "block";
+// ---------- Build ----------
+function build() {
+  const n = members.length;
+
+  track.style.setProperty("--n", n);
+  $("team-count").textContent = n === 1 ? "one member" : `${n} members`;
+  $("ct-total").textContent = `/ ${pad(n)}`;
+
+  members.forEach((m, i) => {
+    // Big background word
+    const word = (m.domain || m.designation || "Team").toUpperCase();
+    const w = document.createElement("div");
+    w.className = "wd " + (word.length > 14 ? "xl" : word.length > 8 ? "long" : "");
+    w.textContent = word;
+    w.setAttribute("aria-hidden", "true");
+    wds.appendChild(w);
+
+    // Portrait
+    const s = document.createElement("div");
+    s.className = "sl";
+    const img = new Image();
+    img.decoding = "async";
+    img.alt = m.name || "";
+    if (i > 1) img.loading = "lazy";
+    if (m.image_url) {
+      img.src = m.image_url;
     } else {
-        resetImagePreview();
+      img.src = FALLBACK_IMG;
+      s.classList.add("noimg");
     }
+    s.appendChild(img);
+    sls.appendChild(s);
+  });
 
-    el.modal.classList.add("active");
+  // Tap bio to expand / collapse
+  $("bio").addEventListener("click", (e) => e.currentTarget.classList.toggle("open"));
 }
 
-
-// =============================================
-// CLOSE MODAL
-// =============================================
-
-function closeModal() {
-    el.modal?.classList.remove("active");
-
-    el.form?.reset();
-
-    existingImageUrl = null;
-
-    resetImagePreview();
+// ---------- Member info ----------
+function safeUrl(value) {
+  try {
+    const u = new URL(String(value || "").trim());
+    return u.protocol === "https:" || u.protocol === "http:" ? u.href : null;
+  } catch {
+    return null;
+  }
 }
 
+function fillInfo(m) {
+  $("in").textContent = pad(active + 1);
+  $("nm").textContent = m.name || "";
+  $("rl").textContent = m.designation || "";
 
-// =============================================
-// IMAGE PREVIEW
-// =============================================
+  const tm = $("tm");
+  tm.textContent = m.domain || "";
+  tm.hidden = !m.domain;
 
-function previewImage(event) {
-    const file = event.target.files?.[0];
+  const bio = $("bio");
+  bio.textContent = m.bio || "";
+  bio.classList.remove("open");
+  bio.hidden = !m.bio;
 
-    if (!file) return;
+  const links = {
+    "s-li": safeUrl(m.linkedin_url),
+    "s-gh": safeUrl(m.github_url),
+    "s-ig": safeUrl(m.instagram_url)
+  };
 
-    const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-        showUploadStatus(
-            "Only JPG, PNG and WEBP images are allowed.",
-            "error"
-        );
-
-        el.image.value = "";
-
-        return;
+  let any = false;
+  for (const [id, url] of Object.entries(links)) {
+    const a = $(id);
+    if (url) {
+      a.href = url;
+      a.hidden = false;
+      any = true;
+    } else {
+      a.hidden = true;
+      a.removeAttribute("href");
     }
-
-    if (file.size > 5 * 1024 * 1024) {
-        showUploadStatus(
-            "Image must be smaller than 5 MB.",
-            "error"
-        );
-
-        el.image.value = "";
-
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-        el.previewImage.src = reader.result;
-
-        el.imagePreview.style.display = "block";
-
-        showUploadStatus(
-            "Image ready to upload.",
-            "success"
-        );
-    };
-
-    reader.onerror = () => {
-        showUploadStatus(
-            "Unable to preview image.",
-            "error"
-        );
-    };
-
-    reader.readAsDataURL(file);
+  }
+  $("soc").hidden = !any;
 }
 
+// ---------- Activate a member ----------
+function setActive(i) {
+  if (i === active) return;
+  const first = active === -1;
+  active = i;
 
-// =============================================
-// REMOVE IMAGE
-// =============================================
+  [...wds.children].forEach((el, k) => {
+    el.classList.toggle("on", k === i);
+    el.classList.toggle("up", k < i);
+  });
+  [...sls.children].forEach((el, k) => {
+    el.classList.toggle("on", k === i);
+    el.classList.toggle("up", k < i);
+  });
 
-function removeImage() {
-    if (el.image) {
-        el.image.value = "";
-    }
+  section.style.setProperty("--h", HUES[i % HUES.length]);
+  $("ct").textContent = pad(i + 1);
 
-    existingImageUrl = null;
-
-    resetImagePreview();
-
-    showUploadStatus(
-        "Image removed. Save changes to apply.",
-        "info"
-    );
+  if (first) {
+    fillInfo(members[i]);
+  } else {
+    info.classList.add("out");
+    clearTimeout(swapTimer);
+    swapTimer = setTimeout(() => {
+      fillInfo(members[active]);
+      info.classList.remove("out");
+    }, 200);
+  }
 }
 
+// ---------- Scroll-driven ----------
+function update() {
+  ticking = false;
+  if (!members.length) return;
 
-// =============================================
-// RESET IMAGE PREVIEW
-// =============================================
+  const rect = track.getBoundingClientRect();
+  const total = track.offsetHeight - window.innerHeight;
+  const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+  const i = Math.min(members.length - 1, Math.floor(p * members.length));
 
-function resetImagePreview() {
-    if (el.previewImage) {
-        el.previewImage.src = "";
-    }
-
-    if (el.imagePreview) {
-        el.imagePreview.style.display = "none";
-    }
-
-    if (el.uploadStatus) {
-        el.uploadStatus.textContent = "";
-    }
+  setActive(i);
+  bar?.style.setProperty("--p", p.toFixed(3));
+  $("hn").style.opacity = p > 0.02 ? "0" : "1";
 }
 
-
-// =============================================
-// IMAGE UPLOAD
-// =============================================
-
-async function uploadMemberImage(file) {
-    const extension = file.name
-        .split(".")
-        .pop()
-        .toLowerCase();
-
-    const filePath =
-        `team/${crypto.randomUUID()}.${extension}`;
-
-    const { error } = await supabase.storage
-        .from("vistas-media")
-        .upload(filePath, file, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: file.type
-        });
-
-    if (error) {
-        throw error;
-    }
-
-    const { data } = supabase.storage
-        .from("vistas-media")
-        .getPublicUrl(filePath);
-
-    if (!data?.publicUrl) {
-        throw new Error("Unable to generate image URL.");
-    }
-
-    return data.publicUrl;
+function onScroll() {
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(update);
+  }
 }
 
+window.addEventListener("scroll", onScroll, { passive: true });
+window.addEventListener("resize", onScroll);
 
-// =============================================
-// URL VALIDATION
-// =============================================
-
-function getSafeUrl(value) {
-    const url = String(value || "").trim();
-
-    if (!url) return null;
-
-    try {
-        const parsed = new URL(url);
-
-        if (
-            parsed.protocol !== "https:" &&
-            parsed.protocol !== "http:"
-        ) {
-            return null;
-        }
-
-        return parsed.href;
-
-    } catch {
-        return null;
-    }
-}
-
-
-// =============================================
-// SAVE MEMBER
-// =============================================
-
-async function saveMember(event) {
-    event.preventDefault();
-
-    if (!el.form || !el.save) return;
-
-    const name = el.name.value.trim();
-
-    if (!name) {
-        showMessage("Member name is required.", "error");
-        return;
-    }
-
-    const linkedin = getSafeUrl(el.linkedin.value);
-    const instagram = getSafeUrl(el.instagram.value);
-    const github = getSafeUrl(el.github.value);
-
-    if (el.linkedin.value.trim() && !linkedin) {
-        showMessage("Enter a valid LinkedIn URL.", "error");
-        return;
-    }
-
-    if (el.instagram.value.trim() && !instagram) {
-        showMessage("Enter a valid Instagram URL.", "error");
-        return;
-    }
-
-    if (el.github.value.trim() && !github) {
-        showMessage("Enter a valid GitHub URL.", "error");
-        return;
-    }
-
-    const file = el.image.files?.[0];
-
-    if (file) {
-        const allowedTypes = [
-            "image/jpeg",
-            "image/png",
-            "image/webp"
-        ];
-
-        if (!allowedTypes.includes(file.type)) {
-            showMessage("Unsupported image format.", "error");
-            return;
-        }
-
-        if (file.size > 5 * 1024 * 1024) {
-            showMessage("Image must be smaller than 5 MB.", "error");
-            return;
-        }
-    }
-
-    const originalButtonHTML = el.save.innerHTML;
-
-    el.save.disabled = true;
-    el.save.textContent = "SAVING...";
-
-    try {
-        let imageUrl = existingImageUrl;
-
-        // Upload new image if selected.
-
-        if (file) {
-            showUploadStatus(
-                "Uploading profile image...",
-                "info"
-            );
-
-            imageUrl = await uploadMemberImage(file);
-
-            showUploadStatus(
-                "Image uploaded successfully.",
-                "success"
-            );
-        }
-
-        const memberData = {
-            name,
-
-            designation: el.designation.value.trim(),
-
-            domain: el.domain.value.trim(),
-
-            bio: el.bio.value.trim(),
-
-            image_url: imageUrl,
-
-            linkedin_url: linkedin,
-
-            instagram_url: instagram,
-
-            github_url: github,
-
-            display_order: Number(el.order.value) || 0,
-
-            status: el.status.value
-        };
-
-        const memberId = el.id.value;
-
-        let result;
-
-        if (memberId) {
-            result = await supabase
-                .from("team_members")
-                .update(memberData)
-                .eq("id", memberId);
-        } else {
-            result = await supabase
-                .from("team_members")
-                .insert([memberData]);
-        }
-
-        if (result.error) {
-            throw result.error;
-        }
-
-        closeModal();
-
-        showMessage(
-            memberId
-                ? "Team member updated successfully."
-                : "Team member added successfully.",
-            "success"
-        );
-
-        await loadMembers();
-
-    } catch (error) {
-        console.error("Save member error:", error);
-
-        showMessage(
-            error.message || "Unable to save team member.",
-            "error"
-        );
-
-    } finally {
-        el.save.disabled = false;
-
-        el.save.innerHTML = originalButtonHTML;
-
-        if (window.lucide) {
-            window.lucide.createIcons();
-        }
-    }
-}
-
-
-// =============================================
-// DELETE MEMBER
-// =============================================
-
-async function deleteMember(id) {
-    const member = members.find(
-        item => String(item.id) === String(id)
-    );
-
-    if (!member) return;
-
-    const confirmed = confirm(
-        `Delete ${member.name} from the team?`
-    );
-
-    if (!confirmed) return;
-
-    try {
-        const { error } = await supabase
-            .from("team_members")
-            .delete()
-            .eq("id", id);
-
-        if (error) {
-            throw error;
-        }
-
-        showMessage(
-            "Team member deleted successfully.",
-            "success"
-        );
-
-        await loadMembers();
-
-    } catch (error) {
-        console.error("Delete member error:", error);
-
-        showMessage(
-            error.message || "Unable to delete team member.",
-            "error"
-        );
-    }
-}
-
-
-// =============================================
-// LOGOUT
-// =============================================
-
-async function logout() {
-    const confirmed = confirm(
-        "Are you sure you want to logout?"
-    );
-
-    if (!confirmed) return;
-
-    try {
-        const { error } = await supabase.auth.signOut();
-
-        if (error) {
-            throw error;
-        }
-
-        sessionStorage.removeItem("admin_name");
-
-        window.location.href = "/admin/login.html";
-
-    } catch (error) {
-        console.error("Logout error:", error);
-
-        alert("Unable to logout. Please try again.");
-    }
-}
-
-
-// =============================================
-// MESSAGE HELPERS
-// =============================================
-
-function showMessage(message, type = "info") {
-    if (!el.message) return;
-
-    el.message.textContent = message;
-
-    el.message.className = `team-message ${type}`;
-}
-
-
-function showUploadStatus(message, type = "info") {
-    if (!el.uploadStatus) return;
-
-    el.uploadStatus.textContent = message;
-
-    el.uploadStatus.className = type;
-}
-
-
-// =============================================
-// HTML ESCAPING
-// =============================================
-
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, character => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-    })[character]);
-}
+load();
