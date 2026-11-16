@@ -1,28 +1,16 @@
-// =============================================
-// VISTAS ACM — TEAM EXTRAS
-// Dynamic member bio + redirecting social buttons
-// Works with the existing site.js carousel.
-// =============================================
-
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// =============================================
-// DOM ELEMENTS
-// =============================================
+/* =========================================
+   VISTAS ACM - TEAM EXTRAS
+   Member Bio + Social Media Redirects
+========================================= */
 
 const $ = (id) => document.getElementById(id);
 
-const nameEl = $("nm");
-const roleEl = $("rl");
-const tagEl = $("tm");
-const numEl = $("in");
-
-const bioEl = $("member-bio");
-const socialsEl = $("member-socials");
-
-// =============================================
-// SOCIAL PLATFORMS
-// =============================================
+const CONFIG = {
+    configEndpoint: "/api/config",
+    table: "team_members"
+};
 
 const PLATFORMS = [
     {
@@ -42,28 +30,59 @@ const PLATFORMS = [
     }
 ];
 
-// =============================================
-// STATE
-// =============================================
+/* =========================================
+   SOCIAL MEDIA SVG ICONS
+========================================= */
 
-let members = [];
-let membersByName = new Map();
+const ICONS = {
 
-let renderFrame = null;
+    linkedin: `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.5h2.67ZM7 8.34a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM18.34 18h-2.67v-4.14c0-.99-.02-2.27-1.38-2.27-1.39 0-1.6 1.08-1.6 2.2V18h-2.67V9.5h2.56v1.16h.04a2.8 2.8 0 0 1 2.52-1.38c2.7 0 3.2 1.78 3.2 4.1Z"/>
+        </svg>
+    `,
 
-// =============================================
-// HELPERS
-// =============================================
+    github: `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.08c-3.1.67-3.75-1.32-3.75-1.32-.5-1.29-1.23-1.63-1.23-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.11-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.29-2.62 5.23-5.11 5.51.4.35.75 1.03.75 2.08v3.1c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/>
+        </svg>
+    `,
 
-function normalize(value) {
-    return String(value || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
-}
+    instagram: `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect
+                x="3" y="3"
+                width="18" height="18"
+                rx="5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+            />
+            <circle
+                cx="12" cy="12" r="4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+            />
+            <circle cx="17.5" cy="6.8" r="1.2"/>
+        </svg>
+    `
+};
+
+
+/* =========================================
+   URL VALIDATION
+========================================= */
 
 function safeURL(value) {
+
+    if (!value || typeof value !== "string") {
+        return null;
+    }
+
     try {
-        const url = new URL(String(value || "").trim());
+
+        const url = new URL(value.trim());
 
         if (!["https:", "http:"].includes(url.protocol)) {
             return null;
@@ -76,35 +95,90 @@ function safeURL(value) {
     }
 }
 
-// =============================================
-// LOAD MEMBERS FROM SUPABASE
-// =============================================
 
-async function loadMembers() {
+/* =========================================
+   CREATE SOCIAL BUTTON
+========================================= */
+
+function createSocialButton(platform, url) {
+
+    const anchor = document.createElement("a");
+
+    anchor.className =
+        `member-social-button ${platform.className}`;
+
+    anchor.href = url;
+
+    anchor.target = "_blank";
+
+    anchor.rel = "noopener noreferrer";
+
+    anchor.title = platform.name;
+
+    anchor.setAttribute(
+        "aria-label",
+        `Visit member's ${platform.name} profile`
+    );
+
+    anchor.innerHTML = ICONS[platform.className];
+
+    return anchor;
+}
+
+
+/* =========================================
+   MAIN INITIALIZATION
+========================================= */
+
+async function initTeamExtras() {
+
+    const bioEl = $("member-bio");
+    const socialsEl = $("member-socials");
+
+    const nameEl = $("nm");
+    const roleEl = $("rl");
+    const domainEl = $("tm");
+    const numberEl = $("in");
+
+    if (!bioEl || !socialsEl || !nameEl || !roleEl) {
+
+        console.error(
+            "[Team Extras] Required HTML elements are missing."
+        );
+
+        return;
+    }
 
     try {
 
-        const response = await fetch("/api/config", {
-            cache: "no-store"
-        });
+        /* FETCH SUPABASE CONFIG */
 
-        if (!response.ok) {
+        const configResponse = await fetch(
+            CONFIG.configEndpoint,
+            { cache: "no-store" }
+        );
+
+        if (!configResponse.ok) {
             throw new Error("Unable to load Supabase configuration.");
         }
 
-        const config = await response.json();
+        const config = await configResponse.json();
 
         if (!config.supabaseUrl || !config.supabaseKey) {
             throw new Error("Supabase configuration is incomplete.");
         }
+
+        /* INITIALIZE SUPABASE */
 
         const supabase = createClient(
             config.supabaseUrl,
             config.supabaseKey
         );
 
+        /* FETCH TEAM MEMBERS */
+
         const { data, error } = await supabase
-            .from("team_members")
+            .from(CONFIG.table)
             .select(`
                 id,
                 name,
@@ -125,264 +199,214 @@ async function loadMembers() {
             throw error;
         }
 
-        members = data || [];
+        if (!data || data.length === 0) {
+            console.warn("[Team Extras] No published members found.");
+            return;
+        }
 
-        membersByName = new Map(
-            members.map(member => [
-                normalize(member.name),
-                member
-            ])
-        );
+        const members = data;
 
         console.log(
-            `VISTAS ACM: ${members.length} team profiles loaded.`
+            `[Team Extras] Loaded ${members.length} members.`
         );
 
-        renderMember();
 
-    } catch (error) {
+        /* =================================
+           FIND CURRENT MEMBER
+        ================================= */
 
-        console.error("Team extras error:", error);
+        function normalizeName(name) {
 
-        if (bioEl) {
-            bioEl.hidden = true;
+            return String(name || "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, "");
         }
 
-        if (socialsEl) {
+        function getCurrentMember() {
+
+            const currentName = normalizeName(
+                nameEl.textContent
+            );
+
+            const matchedMember = members.find(
+                member =>
+                    normalizeName(member.name) === currentName
+            );
+
+            if (matchedMember) {
+                return matchedMember;
+            }
+
+            const currentIndex = Number(
+                numberEl?.textContent.trim()
+            ) - 1;
+
+            if (
+                Number.isInteger(currentIndex) &&
+                currentIndex >= 0 &&
+                currentIndex < members.length
+            ) {
+                return members[currentIndex];
+            }
+
+            return null;
+        }
+
+
+        /* =================================
+           RENDER MEMBER BIO
+        ================================= */
+
+        function renderBio(member) {
+
+            const bio = member?.bio?.trim();
+
+            bioEl.textContent = bio || "";
+
+            bioEl.hidden = !bio;
+        }
+
+
+        /* =================================
+           RENDER SOCIAL BUTTONS
+        ================================= */
+
+        function renderSocials(member) {
+
             socialsEl.replaceChildren();
-            socialsEl.hidden = true;
+
+            let buttonCount = 0;
+
+            for (const platform of PLATFORMS) {
+
+                const url = safeURL(
+                    member?.[platform.key]
+                );
+
+                if (!url) {
+                    continue;
+                }
+
+                const button = createSocialButton(
+                    platform,
+                    url
+                );
+
+                socialsEl.appendChild(button);
+
+                buttonCount++;
+            }
+
+            socialsEl.hidden = buttonCount === 0;
         }
 
-    }
-}
 
-// =============================================
-// IDENTIFY CURRENT MEMBER
-// =============================================
+        /* =================================
+           RENDER CURRENT MEMBER
+        ================================= */
 
-function getCurrentMember() {
+        let previousMemberId = null;
 
-    if (!members.length) {
-        return null;
-    }
+        function render() {
 
-    // First: match the visible member name.
+            const member = getCurrentMember();
 
-    const visibleName = normalize(
-        nameEl?.textContent
-    );
+            if (!member) {
 
-    if (visibleName && membersByName.has(visibleName)) {
-        return membersByName.get(visibleName);
-    }
+                bioEl.hidden = true;
+                socialsEl.hidden = true;
 
-    // Second: use the member number.
+                return;
+            }
 
-    const number = Number.parseInt(
-        numEl?.textContent,
-        10
-    );
+            if (previousMemberId === member.id) {
+                return;
+            }
 
-    if (
-        Number.isInteger(number) &&
-        number >= 1
-    ) {
-        return members[number - 1] || null;
-    }
+            previousMemberId = member.id;
 
-    return null;
-}
+            renderBio(member);
 
-// =============================================
-// RENDER MEMBER BIO
-// =============================================
+            renderSocials(member);
 
-function renderBio(member) {
-
-    if (!bioEl) return;
-
-    const bio = String(member?.bio || "").trim();
-
-    bioEl.textContent = bio;
-
-    bioEl.hidden = !bio;
-
-}
-
-// =============================================
-// CREATE REDIRECTING BUTTON
-// =============================================
-
-function createSocialButton(member, platform) {
-
-    const url = safeURL(
-        member?.[platform.key]
-    );
-
-    if (!url) {
-        return null;
-    }
-
-    const button = document.createElement("a");
-
-    button.href = url;
-
-    button.target = "_blank";
-
-    button.rel = "noopener noreferrer";
-
-    button.className =
-        `member-social-button ${platform.className}`;
-
-    button.setAttribute(
-        "aria-label",
-        `Visit ${member.name}'s ${platform.name} profile`
-    );
-
-    button.title = platform.name;
-
-    // Button text and redirect arrow.
-
-    const label = document.createElement("span");
-
-    label.className = "social-label";
-
-    label.textContent = platform.name;
-
-    const arrow = document.createElement("span");
-
-    arrow.className = "social-arrow";
-
-    arrow.textContent = "↗";
-
-    button.appendChild(label);
-
-    button.appendChild(arrow);
-
-    return button;
-}
-
-// =============================================
-// RENDER MEMBER SOCIAL BUTTONS
-// =============================================
-
-function renderSocialLinks(member) {
-
-    if (!socialsEl) return;
-
-    // Clear previous member's buttons.
-
-    socialsEl.replaceChildren();
-
-    let buttonCount = 0;
-
-    PLATFORMS.forEach(platform => {
-
-        const button = createSocialButton(
-            member,
-            platform
-        );
-
-        if (!button) return;
-
-        socialsEl.appendChild(button);
-
-        buttonCount++;
-
-    });
-
-    // Hide container if member has no social links.
-
-    socialsEl.hidden = buttonCount === 0;
-
-}
-
-// =============================================
-// UPDATE CURRENT MEMBER
-// =============================================
-
-function renderMember() {
-
-    const member = getCurrentMember();
-
-    if (!member) {
-
-        if (bioEl) {
-            bioEl.hidden = true;
+            console.log(
+                `[Team Extras] Displaying ${member.name}`,
+                {
+                    bio: Boolean(member.bio),
+                    socialLinks: PLATFORMS.filter(
+                        platform =>
+                            safeURL(member[platform.key])
+                    ).map(platform => platform.name)
+                }
+            );
         }
 
-        if (socialsEl) {
-            socialsEl.replaceChildren();
-            socialsEl.hidden = true;
-        }
 
-        return;
-    }
+        /* =================================
+           WATCH CAROUSEL CHANGES
+        ================================= */
 
-    renderBio(member);
+        const observer = new MutationObserver(() => {
 
-    renderSocialLinks(member);
-
-    console.log(
-        "Displayed social profiles for:",
-        member.name
-    );
-
-}
-
-// =============================================
-// WATCH CAROUSEL CHANGES
-// =============================================
-
-function observeCarousel() {
-
-    const observer = new MutationObserver(() => {
-
-        if (renderFrame) {
-            cancelAnimationFrame(renderFrame);
-        }
-
-        renderFrame = requestAnimationFrame(() => {
-
-            renderMember();
+            render();
 
         });
 
-    });
-
-    [nameEl, numEl].forEach(element => {
-
-        if (!element) return;
-
-        observer.observe(element, {
+        observer.observe(nameEl, {
             childList: true,
             characterData: true,
             subtree: true
         });
 
-    });
+        if (numberEl) {
 
-}
+            observer.observe(numberEl, {
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
 
-// =============================================
-// INITIALIZATION
-// =============================================
+        }
 
-async function init() {
 
-    if (!nameEl || !roleEl || !socialsEl) {
+        /* INITIAL RENDER */
 
-        console.warn(
-            "Team extras: Required HTML elements not found."
+        render();
+
+        /* FALLBACK: CHECK AFTER CAROUSEL LOAD */
+
+        setTimeout(render, 500);
+        setTimeout(render, 1500);
+
+        console.log("[Team Extras] Initialization complete.");
+
+    } catch (error) {
+
+        console.error(
+            "[Team Extras] Initialization failed:",
+            error
         );
 
-        return;
+        bioEl.hidden = true;
+        socialsEl.hidden = true;
     }
-
-    observeCarousel();
-
-    await loadMembers();
-
 }
 
-init();
+
+/* =========================================
+   START
+========================================= */
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initTeamExtras,
+        { once: true }
+    );
+
+} else {
+
+    initTeamExtras();
+
+}
