@@ -1656,3 +1656,30 @@ body[data-page] .ph .num {
 @media (prefers-reduced-motion: reduce) {
   .jp-hover-word { transition: none !important; }
 }
+
+#intro-loader video {
+  display: block;
+
+  width: min(75vw, 560px);
+  height: auto;
+
+  max-height: 35vh;
+
+  object-fit: contain;
+  background: transparent;
+
+  mix-blend-mode: screen;
+
+  border: none;
+  outline: none;
+  box-shadow: none;
+  filter: none;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  #intro-loader video {
+    width: 88vw;
+    max-height: 30vh;
+  }
+}
