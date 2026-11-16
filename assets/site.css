@@ -1021,3 +1021,68 @@ body.home #wipe{animation:none;transform:translateY(100%)}
     }
 
 }
+
+/* =================================
+   TEAM MEMBER BIO - READABILITY
+================================= */
+
+.member-bio {
+    position: relative;
+    z-index: 10;
+
+    width: min(390px, 100%);
+    max-width: 390px;
+
+    margin-top: 18px;
+    padding: 14px 16px;
+
+    color: #e5edf7;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.85;
+    letter-spacing: 0.1px;
+
+    background: linear-gradient(
+        110deg,
+        rgba(2, 10, 25, 0.88),
+        rgba(2, 10, 25, 0.55)
+    );
+
+    border-left: 2px solid #20a8ff;
+    border-radius: 0 8px 8px 0;
+
+    text-shadow: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    overflow-wrap: break-word;
+}
+
+.member-bio[hidden] {
+    display: none !important;
+}
+
+/* Social buttons spacing */
+
+.member-socials {
+    position: relative;
+    z-index: 10;
+    margin-top: 22px;
+}
+
+/* Mobile readability */
+
+@media (max-width: 700px) {
+    .member-bio {
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.75;
+        padding: 12px 14px;
+        margin-top: 14px;
+    }
+
+    .member-socials {
+        margin-top: 16px;
+    }
+}
