@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#020817">
 
-  <title>Team · VISTAS ACM</title>
+  <title>Team | VISTAS ACM</title>
 
-  <meta name="description" content="Meet the student leaders and members behind the VISTAS ACM Student Chapter.">
+  <meta
+    name="description"
+    content="Meet the student leaders, developers and creative minds behind the VISTAS ACM Student Chapter."
+  >
 
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <link rel="icon" href="assets/vistas-acm-blue-logo.jpg">
   <link rel="stylesheet" href="assets/site.css">
@@ -23,17 +30,26 @@
     <img src="assets/vistas-acm-blue-logo.jpg" alt="">
   </div>
 
+  <!-- CUSTOM CURSOR -->
   <div id="cur"></div>
 
-  <!-- =========================
+  <!-- =====================================
        NAVIGATION
-  ========================== -->
+  ====================================== -->
 
   <nav class="nav" id="nv" aria-label="Main navigation">
 
-    <a class="brand" data-p="home" href="index.html" aria-label="VISTAS ACM home">
+    <a
+      class="brand"
+      data-p="home"
+      href="index.html"
+      aria-label="VISTAS ACM home"
+    >
 
-      <img src="assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM Logo">
+      <img
+        src="assets/vistas-acm-blue-logo.jpg"
+        alt="VISTAS ACM Logo"
+      >
 
       <span>
         <b>VISTAS ACM</b>
@@ -45,9 +61,9 @@
     <button
       class="mt"
       id="mt"
+      type="button"
       aria-expanded="false"
       aria-label="Open menu"
-      type="button"
     >
       ☰
     </button>
@@ -114,20 +130,20 @@
   </nav>
 
 
-  <!-- =========================
+  <!-- =====================================
        MAIN CONTENT
-  ========================== -->
+  ====================================== -->
 
   <main id="top">
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
 
     <header class="ph" style="border:0">
 
       <div class="wrap">
 
         <span class="mono">
-          VISTAS ACM / Team
+          VISTAS ACM / TEAM
         </span>
 
         <h1>
@@ -136,8 +152,8 @@
         </h1>
 
         <p class="lead">
-          One team, fifteen members. Keep scrolling and discover
-          the people building our chapter.
+          One team, fifteen members. Discover the people,
+          ideas and passion building our chapter.
         </p>
 
       </div>
@@ -149,18 +165,23 @@
     </header>
 
 
-    <!-- =========================
+    <!-- =====================================
          TEAM CAROUSEL
-    ========================== -->
+    ====================================== -->
 
-    <section id="team" class="tt" style="padding:0">
+    <section
+      id="team"
+      class="tt"
+      style="padding:0"
+      aria-label="Meet the VISTAS ACM team"
+    >
 
       <div class="ttrack" id="tk">
 
         <div
           class="tstage"
           role="group"
-          aria-label="Team members. Scroll to change the profile."
+          aria-label="Team member profiles. Scroll or swipe to change members."
           aria-live="polite"
         >
 
@@ -173,34 +194,40 @@
 
           <!-- BACKGROUND TYPOGRAPHY -->
 
-          <div id="wds" aria-hidden="true"></div>
+          <div
+            id="wds"
+            aria-hidden="true"
+          ></div>
 
 
           <!-- MEMBER PORTRAITS -->
 
-          <div id="sls"></div>
+          <div
+            id="sls"
+            aria-label="Team member portraits"
+          ></div>
 
 
-          <!-- =========================
+          <!-- =================================
                MEMBER INFORMATION
-          ========================== -->
+          ================================== -->
 
           <div class="info">
 
-            <span class="mono" style="color:#fff">
+            <span class="mono member-number">
               MEMBER <span id="in">01</span>
             </span>
 
             <h3 id="nm">
-              Name
+              Loading...
             </h3>
 
             <p id="rl">
-              Designation
+              Team Member
             </p>
 
             <span class="t" id="tm">
-              Domain
+              VISTAS ACM
             </span>
 
 
@@ -210,20 +237,24 @@
               class="member-bio"
               id="member-bio"
               aria-label="Member biography"
+              hidden
             ></div>
 
 
-            <!-- MEMBER SOCIAL LINKS -->
+            <!-- MEMBER SOCIAL REDIRECT BUTTONS -->
 
             <div
               class="member-socials"
               id="member-socials"
               aria-label="Member social profiles"
+              hidden
             >
 
               <!--
-                team-extras.js populates these links
-                using the member's Supabase profile.
+                team-extras.js dynamically generates:
+                LINKEDIN ↗
+                GITHUB ↗
+                INSTAGRAM ↗
               -->
 
             </div>
@@ -231,9 +262,9 @@
           </div>
 
 
-          <!-- =========================
+          <!-- =================================
                MEMBER COUNTER
-          ========================== -->
+          ================================== -->
 
           <div class="cnt">
 
@@ -269,9 +300,9 @@
   </main>
 
 
-  <!-- =========================
+  <!-- =====================================
        FOOTER
-  ========================== -->
+  ====================================== -->
 
   <footer>
 
@@ -279,9 +310,18 @@
 
       <div class="ft">
 
-        <a class="brand" data-p="home" href="index.html">
+        <!-- BRAND -->
 
-          <img src="assets/vistas-acm-blue-logo.jpg" alt="VISTAS ACM Logo">
+        <a
+          class="brand"
+          data-p="home"
+          href="index.html"
+        >
+
+          <img
+            src="assets/vistas-acm-blue-logo.jpg"
+            alt="VISTAS ACM Logo"
+          >
 
           <span>
             <b>VISTAS ACM</b>
@@ -316,7 +356,12 @@
           aria-label="Follow VISTAS ACM on Instagram"
         >
 
-          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            width="18"
+            height="18"
+          >
 
             <rect
               x="3"
@@ -362,6 +407,8 @@
       </div>
 
 
+      <!-- FOOTER BRAND TYPOGRAPHY -->
+
       <div class="big-ft" aria-hidden="true">
         VISTAS
       </div>
@@ -371,16 +418,20 @@
   </footer>
 
 
-  <!-- =========================
+  <!-- =====================================
        JAVASCRIPT
-  ========================== -->
+  ====================================== -->
 
-  <!-- Main website functionality -->
+  <!-- Main website navigation and carousel -->
   <script src="assets/site.js"></script>
 
-  <!-- Dynamic member bio and social profiles -->
-  <script type="module" src="assets/team-extras.js"></script>
+  <!-- Dynamic member bio and social redirect buttons -->
+  <script
+    type="module"
+    src="assets/team-extras.js"
+  ></script>
 
 </body>
 
 </html>
+```

@@ -928,3 +928,96 @@ body.home #wipe{animation:none;transform:translateY(100%)}
   .info .soc { margin-top: 12px; gap: 6px; }
   .soc a { width: 34px; height: 34px; }
 }
+
+/* =============================================
+   VISTAS ACM — MEMBER REDIRECT BUTTONS
+============================================= */
+
+.member-socials {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.member-socials[hidden] {
+    display: none !important;
+}
+
+.member-social-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    padding: 13px 20px;
+
+    min-width: 125px;
+
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 50px;
+
+    color: #ffffff;
+    background: rgba(255,255,255,.045);
+
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    transition:
+        color .3s ease,
+        background .3s ease,
+        border-color .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.member-social-button:hover {
+    color: #020817;
+    background: #20a8ff;
+    border-color: #20a8ff;
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 25px rgba(32,168,255,.2);
+}
+
+.social-arrow {
+    font-size: 17px;
+    transition: transform .3s ease;
+}
+
+.member-social-button:hover .social-arrow {
+    transform: translate(3px, -3px);
+}
+
+/* Keyboard accessibility */
+
+.member-social-button:focus-visible {
+    outline: 2px solid #20a8ff;
+    outline-offset: 4px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .member-socials {
+        justify-content: center;
+        gap: 9px;
+        margin-top: 16px;
+    }
+
+    .member-social-button {
+        min-width: auto;
+        padding: 11px 15px;
+        gap: 10px;
+        font-size: 10px;
+    }
+
+}
