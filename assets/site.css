@@ -1442,3 +1442,34 @@ body.home #wipe{animation:none;transform:translateY(100%)}
   #team .info #nm  { font-size: clamp(30px, 9.5vw, 40px) !important; }
   #team .info #bio { -webkit-line-clamp: 2; }
 }
+
+/* ===== Social icons: one line, small ===== */
+#team .info #soc {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  width: auto !important;
+  max-width: none !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+}
+#team .info #soc a {
+  flex: 0 0 auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+}
+#team .info #soc a svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* mobile: keep them small and on the same row as the tag */
+@media (max-width: 860px) {
+  #team .info #soc { gap: 6px !important; margin-top: 14px !important; }
+  #team .info #soc a { width: 28px !important; height: 28px !important; }
+  #team .info #soc a svg { width: 13px !important; height: 13px !important; }
+}
